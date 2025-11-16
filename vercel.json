@@ -1,0 +1,5 @@
+{
+  "rewrites": [
+    { "source": "/insurance", "destination": "/insurance.html" }
+  ]
+}
