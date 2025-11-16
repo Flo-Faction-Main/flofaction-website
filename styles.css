@@ -703,3 +703,60 @@ section:nth-child(even) {
         font-size: 0.9rem;
     }
 }
+
+/* ===== CRITICAL CONTRAST FIXES FOR ACCESSIBILITY ===== */
+
+/* Fix hero section text - make it dark and readable */
+.hero-title,
+.hero h1,
+.hero-content h1,
+.hero-subtitle,
+.hero p {
+  color: #1a1a1a !important;
+  text-shadow: none !important;
+}
+
+/* Fix secondary buttons with better contrast */
+.btn-secondary,
+.button-secondary,
+button.secondary {
+  background-color: #f8f9fa !important;
+  color: #212529 !important;
+  border: 2px solid #495057 !important;
+}
+
+.btn-secondary:hover {
+  background-color: #e9ecef !important;
+  color: #000 !important;
+}
+
+/* Ensure all light background sections have dark text */
+.hero,
+.hero-section,
+section.light-bg {
+  background-color: #f8f9fa;
+}
+
+.hero *,
+.hero-section *,
+section.light-bg * {
+  color: #212529;
+}
+
+/* Fix placeholder colors that might be invisible */
+::placeholder {
+  color: #6c757d !important;
+  opacity: 1;
+}
+
+/* Ensure minimum contrast ratio 4.5:1 for all text */
+body, p, span, div, a, li {
+  color: #333;
+}
+
+/* Fix any gray text on light backgrounds */
+.text-muted,
+.text-secondary {
+  color: #495057 !important;
+}
+
