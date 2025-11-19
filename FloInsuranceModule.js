@@ -101,7 +101,7 @@ export class IULIllustrator {
       <div class="insurance-summary">
         <div class="metric">
           <span>Projected Cash Value</span>
-          <strong>$${fv.toLocaleString(undefined, {maximumFractionDigits: 0})}</strong>
+          <strong>$${fv.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}</strong>
         </div>
         <div class="metric">
           <span>Death Benefit Protection</span>
