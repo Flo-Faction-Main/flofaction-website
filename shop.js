@@ -1,4 +1,4 @@
-// Product Database
+// Product Database with Limited Time Discounts
 const products = [
   // MUSIC & BEATS
   {
@@ -28,24 +28,32 @@ const products = [
     icon: '🎧',
     badge: 'Premium'
   },
-  // GUIDES - PREMIUM
+  // GUIDES - PREMIUM WITH LIMITED TIME DISCOUNT
   {
     id: 'guide-001',
     name: 'Comprehensive Retirement Planning Guide',
     category: 'guides',
     price: 97.00,
+    originalPrice: 197.00,
+    discount: 100.00,
+    discountPercent: 51,
+    isDiscounted: true,
     description: 'Complete 200+ page guide covering retirement strategies, tax optimization, and investment planning. Lifetime access.',
     icon: '📚',
-    badge: 'Premium - $97'
+    badge: 'Premium - Save $100'
   },
   {
     id: 'guide-002',
     name: 'Emergency Management & Disaster Preparedness',
     category: 'guides',
     price: 87.00,
+    originalPrice: 177.00,
+    discount: 90.00,
+    discountPercent: 51,
+    isDiscounted: true,
     description: 'In-depth guide for personal and family emergency preparedness. 180+ pages with checklists and templates.',
     icon: '🛡️',
-    badge: 'Premium - $87'
+    badge: 'Premium - Save $90'
   },
   // GUIDES - FREE
   {
@@ -75,7 +83,7 @@ document.addEventListener('DOMContentLoaded', () => {
   updateCartCount();
 });
 
-// Display products in grid
+// Display products in grid with discount styling
 function displayProducts(productsToDisplay) {
   const grid = document.getElementById('products-grid');
   grid.innerHTML = '';
@@ -83,15 +91,43 @@ function displayProducts(productsToDisplay) {
   productsToDisplay.forEach(product => {
     const card = document.createElement('div');
     card.className = 'product-card';
+    
+    // Build pricing display
+    let priceHtml = '';
+    if (product.isDiscounted) {
+      priceHtml = `
+        <div class="product-price">
+          <div class="price-discount-container">
+            <div class="discount-badge">⏰ Limited Time Offer</div>
+            <div class="price-breakdown">
+              <span class="price-original">Original: $${product.originalPrice.toFixed(2)}</span>
+              <span class="discount-amount">Save $${product.discount.toFixed(2)} (${product.discountPercent}% off)</span>
+            </div>
+            <span class="price-current">Now: $${product.price.toFixed(2)}</span>
+          </div>
+        </div>
+      `;
+    } else if (product.price === 0) {
+      priceHtml = `
+        <div class="product-price">
+          <span class="price-current" style="color: #51cf66; font-size: 1.5rem;">FREE</span>
+        </div>
+      `;
+    } else {
+      priceHtml = `
+        <div class="product-price">
+          <span class="price-current">$${product.price.toFixed(2)}</span>
+        </div>
+      `;
+    }
+    
     card.innerHTML = `
       <div class="product-image">${product.icon}</div>
       <div class="product-content">
         <span class="product-badge${product.badge.includes('FREE') ? ' free' : ''}">${product.badge}</span>
         <h3 class="product-title">${product.name}</h3>
         <p class="product-desc">${product.description}</p>
-        <div class="product-price">
-          <span class="price-current">$${product.price.toFixed(2)}</span>
-        </div>
+        ${priceHtml}
         <div class="product-footer">
           <button class="btn btn-primary" onclick="addToCart('${product.id}')">Add to Cart</button>
           <button class="btn btn-secondary" onclick="showProductDetails('${product.id}')">Details</button>
@@ -130,7 +166,7 @@ function sortProducts() {
   displayProducts(sorted);
 }
 
-// Show product details
+// Show product details with discount info
 function showProductDetails(productId) {
   const product = products.find(p => p.id === productId);
   if (!product) return;
@@ -138,10 +174,27 @@ function showProductDetails(productId) {
   const modal = document.getElementById('product-modal');
   const modalBody = document.getElementById('modal-body');
   
+  // Build pricing display for modal
+  let priceHtml = '';
+  if (product.isDiscounted) {
+    priceHtml = `
+      <div style="margin: 20px 0; padding: 15px; background: #f0f7ff; border-radius: 10px; border: 2px solid #667eea;">
+        <div style="font-size: 0.9rem; color: #ff6b6b; font-weight: bold; margin-bottom: 10px;">⏰ LIMITED TIME OFFER</div>
+        <div style="font-size: 0.9rem; color: #666; margin-bottom: 5px;">Original Price: <span style="text-decoration: line-through;">$${product.originalPrice.toFixed(2)}</span></div>
+        <div style="font-size: 0.9rem; color: #51cf66; font-weight: bold; margin-bottom: 10px;">You Save: $${product.discount.toFixed(2)} (${product.discountPercent}% off)</div>
+        <div style="font-size: 1.5rem; color: #667eea; font-weight: bold;">Final Price: $${product.price.toFixed(2)}</div>
+      </div>
+    `;
+  } else if (product.price === 0) {
+    priceHtml = `<p style="font-size: 1.5rem; color: #51cf66; font-weight: bold; margin: 20px 0;">FREE DOWNLOAD</p>`;
+  } else {
+    priceHtml = `<p style="font-size: 1.2rem; color: #667eea; font-weight: bold; margin: 20px 0;">$${product.price.toFixed(2)}</p>`;
+  }
+  
   modalBody.innerHTML = `
     <div style="text-align: center; font-size: 4rem; margin-bottom: 20px;">${product.icon}</div>
     <h2>${product.name}</h2>
-    <p style="font-size: 1.2rem; color: #667eea; font-weight: bold; margin: 15px 0;">$${product.price.toFixed(2)}</p>
+    ${priceHtml}
     <p>${product.description}</p>
     <div style="margin-top: 30px; display: flex; gap: 10px;">
       <button class="btn btn-primary" onclick="addToCart('${product.id}'); closeModal()">Add to Cart</button>
@@ -235,7 +288,7 @@ function toggleCart() {
 }
 
 function proceedToCheckout() {
-  window.location.href = '/checkout.html';
+  window.location.href = '/checkout';
 }
 
 // Close modal when clicking outside
