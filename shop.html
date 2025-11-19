@@ -42,9 +42,56 @@
     .product-badge.free { background: #51cf66; }
     .product-title { font-size: 1.3rem; margin-bottom: 10px; color: #2c3e50; }
     .product-desc { font-size: 0.95rem; color: #666; margin-bottom: 15px; line-height: 1.5; }
+    
+    /* Discount Pricing Styles */
     .product-price { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
     .price-current { font-size: 1.8rem; color: #667eea; font-weight: bold; }
     .price-original { font-size: 1rem; color: #999; text-decoration: line-through; }
+    
+    .price-discount-container {
+      width: 100%;
+      padding: 12px;
+      background: #f0f7ff;
+      border: 2px solid #667eea;
+      border-radius: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    
+    .discount-badge {
+      display: inline-block;
+      background: #ff6b6b;
+      color: white;
+      padding: 4px 12px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: bold;
+      width: fit-content;
+    }
+    
+    .price-breakdown {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 0.85rem;
+    }
+    
+    .price-original {
+      color: #999;
+    }
+    
+    .discount-amount {
+      color: #51cf66;
+      font-weight: bold;
+    }
+    
+    .price-current {
+      font-size: 1.5rem;
+      color: #667eea;
+      font-weight: bold;
+    }
+    
     .product-footer { display: flex; gap: 10px; }
     .btn { padding: 12px 20px; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; }
     .btn-primary { background: #667eea; color: white; flex: 1; text-align: center; }
@@ -85,19 +132,19 @@
     <div class="navbar-content">
       <h1>🎵 FloFaction Shop</h1>
       <div class="nav-links">
-        <a href="/index-voice-agent.html">Home</a>
-        <a href="/services.html">Services</a>
+        <a href="/">Home</a>
+        <a href="/services">Services</a>
         <a href="#" onclick="toggleCart()">Cart <span class="cart-count" id="cart-count">0</span></a>
       </div>
     </div>
   </nav>
-
+  
   <!-- Hero -->
   <div class="hero">
     <h1>Digital Products Marketplace</h1>
     <p>Music Beats • Business Guides • Educational Resources</p>
   </div>
-
+  
   <!-- Controls -->
   <div class="shop-controls">
     <select id="category-filter" onchange="filterProducts()">
@@ -112,14 +159,14 @@
       <option value="price-high">Price: High to Low</option>
     </select>
   </div>
-
+  
   <!-- Products -->
   <div class="container">
     <div class="products-grid" id="products-grid">
       <!-- Products will be loaded here by JavaScript -->
     </div>
   </div>
-
+  
   <!-- Cart Sidebar -->
   <div class="cart-sidebar" id="cart-sidebar">
     <h2>Shopping Cart</h2>
@@ -128,27 +175,26 @@
     <button class="btn btn-primary" onclick="proceedToCheckout()">Proceed to Checkout</button>
     <button class="btn btn-secondary" onclick="toggleCart()" style="margin-top: 10px;">Close Cart</button>
   </div>
-
+  
   <!-- Footer -->
   <footer class="footer">
     <h3>FloFaction LLC</h3>
     <p>Your Complete Business Solution Provider</p>
     <div class="footer-contact">
-      <p>📞 (772) 208-9646</p>
-      <p>📧 info@flofaction.com</p>
-      <p>📍 Bradenton, Sarasota & Tampa Bay, Florida</p>
+      <p>📃 (772) 208-9646</p>
+      <p>📬 info@flofaction.com</p>
+      <p>📈 Bradenton, Sarasota & Tampa Bay, Florida</p>
     </div>
   </footer>
-
+  
   <!-- Modal for Product Details -->
   <div id="product-modal" class="modal">
     <div class="modal-content">
-      <span class="close" onclick="closeModal()">&times;</span>
+      <span class="close" onclick="closeModal()">×</span>
       <div id="modal-body"></div>
     </div>
   </div>
-
-  <script src="/cart.js"></script>
+  
   <script src="/shop.js"></script>
 </body>
 </html>
