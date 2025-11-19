@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Intake Form | FloFaction LLC</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, sans-serif; background: #f5f7fa; padding: 20px; }
+    .container { max-width: 900px; margin: 0 auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); }
+    h1 { color: #667eea; margin-bottom: 10px; text-align: center; }
+    .subtitle { text-align: center; color: #666; margin-bottom: 30px; }
+    .form-section { margin-bottom: 40px; border-left: 4px solid #667eea; padding-left: 20px; }
+    .section-title { font-size: 1.3rem; font-weight: 600; color: #2c3e50; margin-bottom: 20px; }
+    .form-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; margin-bottom: 20px; }
+    .form-group { display: flex; flex-direction: column; }
+    label { font-weight: 600; color: #2c3e50; margin-bottom: 8px; font-size: 0.95rem; }
+    input, select, textarea { padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; font-size: 1rem; transition: border-color 0.3s; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+    textarea { resize: vertical; min-height: 80px; }
+    .inline-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; align-items: flex-end; }
+    .radio-group, .checkbox-group { display: flex; gap: 20px; align-items: center; }
+    .radio-group label, .checkbox-group label { margin-bottom: 0; display: flex; align-items: center; gap: 8px; font-weight: normal; cursor: pointer; }
+    input[type="radio"], input[type="checkbox"] { width: auto; cursor: pointer; }
+    .button-group { display: flex; gap: 15px; justify-content: center; margin-top: 40px; }
+    button { padding: 12px 30px; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; }
+    .btn-submit { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; }
+    .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4); }
+    .btn-reset { background: #e0e0e0; color: #333; }
+    .btn-reset:hover { background: #d0d0d0; }
+    .required { color: red; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>📋 Client Intake Form</h1>
+    <p class="subtitle">FloFaction LLC - Complete Client Information (Life & Health Insurance)</p>
+    
+    <form id="clientForm">
+      <!-- BASIC INFORMATION SECTION -->
+      <div class="form-section">
+        <h2 class="section-title">Basic Client Information</h2>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="clientName">Client Name(s) <span class="required">*</span></label>
+            <input type="text" id="clientName" name="clientName" required>
+          </div>
+          <div class="form-group">
+            <label for="phoneNumber">Phone # <span class="required">*</span></label>
+            <input type="tel" id="phoneNumber" name="phoneNumber" required>
+          </div>
+          <div class="form-group">
+            <label for="email">Email Address <span class="required">*</span></label>
+            <input type="email" id="email" name="email" required>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="address">Address <span class="required">*</span></label>
+            <input type="text" id="address" name="address" required>
+          </div>
+          <div class="form-group">
+            <label for="ssn">SSN # <span class="required">*</span></label>
+            <input type="password" id="ssn" name="ssn" placeholder="XXX-XX-XXXX" required>
+          </div>
+        </div>
+      </div>
+
+      <!-- HEALTH INFORMATION SECTION -->
+      <div class="form-section">
+        <h2 class="section-title">Health Information</h2>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="dob">Date of Birth <span class="required">*</span></label>
+            <input type="date" id="dob" name="dob" required>
+          </div>
+          <div class="form-group">
+            <label for="height">Height</label>
+            <input type="text" id="height" name="height" placeholder="e.g., 5'10\"">
+          </div>
+          <div class="form-group">
+            <label for="weight">Weight (lbs)</label>
+            <input type="number" id="weight" name="weight">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="medications">Current Medications (Prescribed)</label>
+          <textarea id="medications" name="medications" placeholder="List all current medications with dosage"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Tobacco Use?</label>
+            <div class="radio-group">
+              <label><input type="radio" name="tobacco" value="yes"> Yes</label>
+              <label><input type="radio" name="tobacco" value="no"> No</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Marijuana Use?</label>
+            <div class="radio-group">
+              <label><input type="radio" name="marijuana" value="yes"> Yes</label>
+              <label><input type="radio" name="marijuana" value="no"> No</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="familyHistory">Family Health History (if any)</label>
+          <textarea id="familyHistory" name="familyHistory" placeholder="Any relevant family medical history"></textarea>
+        </div>
+      </div>
+
+      <!-- BENEFICIARY INFORMATION SECTION -->
+      <div class="form-section">
+        <h2 class="section-title">Beneficiary Information</h2>
+        
+        <div class="form-group">
+          <label>Beneficiary Names & Date of Birth</label>
+          <textarea id="beneficiaries" name="beneficiaries" placeholder="Name: DOB:
+Name: DOB:
+Name: DOB:" style="min-height: 100px;"></textarea>
+        </div>
+      </div>
+
+      <!-- INSURANCE HISTORY SECTION -->
+      <div class="form-section">
+        <h2 class="section-title">Current Insurance Policies</h2>
+        
+        <div class="form-group">
+          <label>Existing Life Insurance Policies</label>
+          <textarea id="existingPolicies" name="existingPolicies" placeholder="Carrier: Coverage Amount: $ Current Premium: $ Type (Term/Final Expense/IUL):"></textarea>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="primaryCarePhysician">Primary Care Physician Name</label>
+            <input type="text" id="primaryCarePhysician" name="primaryCarePhysician">
+          </div>
+          <div class="form-group">
+            <label for="physicianPhone">Physician Phone #</label>
+            <input type="tel" id="physicianPhone" name="physicianPhone">
+          </div>
+        </div>
+      </div>
+
+      <!-- BUDGET SECTION -->
+      <div class="form-section">
+        <h2 class="section-title">Budget & Preferences</h2>
+        
+        <div class="form-group">
+          <label>Monthly Budget</label>
+          <div class="inline-group">
+            <div class="checkbox-group">
+              <label><input type="checkbox" name="budget" value="20"> $20</label>
+              <label><input type="checkbox" name="budget" value="25"> $25</label>
+              <label><input type="checkbox" name="budget" value="50"> $50</label>
+              <label><input type="checkbox" name="budget" value="75"> $75</label>
+              <label><input type="checkbox" name="budget" value="100"> $100</label>
+            </div>
+          </div>
+          <div class="inline-group" style="margin-top: 10px;">
+            <div class="checkbox-group">
+              <label><input type="checkbox" name="budget" value="150"> $150</label>
+              <label><input type="checkbox" name="budget" value="200"> $200</label>
+              <label><input type="checkbox" name="budget" value="250"> $250</label>
+              <label><input type="checkbox" name="budget" value="300"> $300</label>
+              <label><input type="checkbox" name="budget" value="350"> $350+</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BANK INFORMATION SECTION -->
+      <div class="form-section">
+        <h2 class="section-title">Banking Information (if applicable)</h2>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="bankName">Bank Name</label>
+            <input type="text" id="bankName" name="bankName">
+          </div>
+          <div class="form-group">
+            <label for="routingNumber">Routing #</label>
+            <input type="text" id="routingNumber" name="routingNumber">
+          </div>
+          <div class="form-group">
+            <label for="accountNumber">Account #</label>
+            <input type="password" id="accountNumber" name="accountNumber">
+          </div>
+        </div>
+      </div>
+
+      <!-- ADDITIONAL INFORMATION -->
+      <div class="form-section">
+        <h2 class="section-title">Additional Information</h2>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="startDate">Start Date / First Draft Date</label>
+            <input type="date" id="startDate" name="startDate">
+          </div>
+          <div class="form-group">
+            <label for="dlic">DLIC #</label>
+            <input type="text" id="dlic" name="dlic">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="notes">Reason / Additional Notes</label>
+          <textarea id="notes" name="notes" placeholder="Any additional information or special requests"></textarea>
+        </div>
+      </div>
+
+      <!-- BUTTONS -->
+      <div class="button-group">
+        <button type="submit" class="btn-submit">📤 Submit Application</button>
+        <button type="reset" class="btn-reset">🔄 Clear Form</button>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('clientForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      alert('Thank you! Your client intake form has been submitted. Our team will contact you shortly.');
+      // In production, this would send data to a server
+      console.log('Form submitted with data from all fields');
+    });
+  </script>
+</body>
+</html>
