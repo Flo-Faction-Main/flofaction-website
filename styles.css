@@ -760,3 +760,87 @@ body, p, span, div, a, li {
   color: #495057 !important;
 }
 
+/* ==================================================
+   FOOTER CONTRAST FIX - High Visibility
+   ================================================== */
+
+/* Ensure footer has proper text contrast */
+footer, .footer {
+    background-color: #2c3e50 !important;
+    color: #ffffff !important;
+}
+
+/* All footer headings should be white */
+footer h1, footer h2, footer h3, footer h4, footer h5, footer h6,
+.footer h1, .footer h2, .footer h3, .footer h4, .footer h5, .footer h6 {
+    color: #ffffff !important;
+}
+
+/* All footer paragraphs and text */
+footer p, footer span, footer div,
+.footer p, .footer span, .footer div {
+    color: #ecf0f1 !important;
+}
+
+/* Footer links - bright and visible */
+footer a, .footer a {
+    color: #3498db !important;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+footer a:hover, .footer a:hover {
+    color: #5dade2 !important;
+    text-decoration: underline;
+}
+
+/* Footer section specific fixes */
+.footer-section, .footer-content {
+    color: #ecf0f1 !important;
+}
+
+.footer-section h3, .footer-section h4 {
+    color: #ffffff !important;
+    font-weight: 600;
+}
+
+/* Footer lists */
+footer ul, footer li, .footer ul, .footer li {
+    color: #ecf0f1 !important;
+}
+
+footer ul li a, .footer ul li a {
+    color: #3498db !important;
+}
+
+footer ul li a:hover, .footer ul li a:hover {
+    color: #5dade2 !important;
+}
+
+/* Contact info section */
+.contact-info, .footer .contact-info {
+    color: #ecf0f1 !important;
+}
+
+.contact-info p, .contact-info a {
+    color: #ecf0f1 !important;
+}
+
+.contact-info a:hover {
+    color: #ffffff !important;
+}
+
+/* Copyright text */
+footer .copyright, .footer .copyright {
+    color: #bdc3c7 !important;
+}
+
+/* Social media icons in footer */
+footer .social-links a, .footer .social-links a {
+    color: #ecf0f1 !important;
+}
+
+footer .social-links a:hover, .footer .social-links a:hover {
+    color: #ffffff !important;
+}
+
