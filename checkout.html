@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout - FloFaction Shop</title>
+  <script src="https://js.stripe.com/v3/"></script>
+  <script src="https://www.paypal.com/sdk/js?client-id=AcaBP0tJ3aYFtNqVh3BnjnFT4l-8CJrZzbd2CgwOyw3DUOw9gUJerWFbYXFkxLcUTlw4M3b_jDOe6eIJ"></script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI'; background: #f5f7fa; }
+    .navbar { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px 40px; }
+    .container { max-width: 1000px; margin: 40px auto; padding: 0 40px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
+    .checkout-section { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+    .checkout-section h2 { margin-bottom: 20px; color: #2c3e50; }
+    .form-group { margin-bottom: 20px; }
+    label { display: block; margin-bottom: 5px; font-weight: 600; }
+    input, select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; }
+    .btn { padding: 12px 30px; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; width: 100%; }
+    .btn-primary { background: #667eea; color: white; margin-top: 20px; }
+    .btn-primary:hover { background: #764ba2; }
+    .order-summary { background: white; padding: 30px; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); height: fit-content; }
+    .order-item { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eee; }
+    .order-total { font-size: 1.5rem; color: #667eea; font-weight: bold; margin-top: 20px; padding-top: 20px; border-top: 2px solid #eee; }
+    .payment-methods { display: flex; gap: 10px; margin-bottom: 20px; }
+    .method-btn { flex: 1; padding: 15px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; font-weight: 600; transition: all 0.3s; }
+    .method-btn.active { border-color: #667eea; background: #f0f4ff; color: #667eea; }
+    @media (max-width: 768px) { .container { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <h1>🛒 FloFaction Checkout</h1>
+  </nav>
+
+  <div class="container">
+    <div class="checkout-section">
+      <h2>Payment Method</h2>
+      <div class="payment-methods">
+        <button class="method-btn active" onclick="selectPayment('stripe')">💳 Stripe</button>
+        <button class="method-btn" onclick="selectPayment('paypal')">🅿️ PayPal</button>
+      </div>
+
+      <div id="stripe-payment">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="email" placeholder="your@email.com" required>
+        </div>
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" id="fullname" placeholder="John Doe" required>
+        </div>
+        <div class="form-group">
+          <label>Card Details</label>
+          <div id="card-element" style="padding: 12px; border: 1px solid #ddd; border-radius: 5px;"></div>
+        </div>
+        <button class="btn btn-primary" onclick="processStripePayment()">Pay with Stripe</button>
+      </div>
+
+      <div id="paypal-payment" style="display: none;">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="paypal-email" placeholder="your@email.com" required>
+        </div>
+        <div id="paypal-button-container" style="margin-top: 20px;"></div>
+      </div>
+    </div>
+
+    <div class="order-summary">
+      <h2>Order Summary</h2>
+      <div id="order-items"></div>
+      <div class="order-total">Total: $<span id="total-amount">0.00</span></div>
+    </div>
+  </div>
+
+  <!-- ElevenLabs Voice Agent Widget -->
+  <elevenlabs-convai agent-id="agent_9501ka7zqvgwfsrrzzxwyrshjmcx"></elevenlabs-convai>
+  <script src="https://unpkg.com/@elevenlabs/convai-widget-embed" async type="text/javascript"></script>
+
+  <script>
+    let stripe, cardElement, selectedPayment = 'stripe';
+    const publishableKey = 'pk_live_51KIMc1HFKDw9KGEei4MAHyYWblo9BOAWJl1HAvIarIvlEYFoJmPjvAWrpVXL6mMXlVIwe6C8RrLKVovdBcrBezIp00CAaqg4A0';
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadCartSummary();
+      initStripe();
+      initPayPal();
+    });
+
+    function initStripe() {
+      stripe = Stripe(publishableKey);
+      const elements = stripe.elements();
+      cardElement = elements.create('card');
+      cardElement.mount('#card-element');
+    }
+
+    function initPayPal() {
+      paypal.Buttons({
+        createOrder: (data, actions) => {
+          const cart = JSON.parse(localStorage.getItem('floFactionCart')) || [];
+          let total = 0;
+          cart.forEach(item => total += item.price);
+          return actions.order.create({ purchase_units: [{ amount: { value: (total/100).toFixed(2) } }] });
+        },
+        onApprove: (data, actions) => {
+          return actions.order.capture().then(details => {
+            alert('Payment successful!');
+            localStorage.removeItem('floFactionCart');
+            window.location.href = '/confirmation.html?order=' + details.id;
+          });
+        }
+      }).render('#paypal-button-container');
+    }
+
+    function selectPayment(method) {
+      selectedPayment = method;
+      document.querySelectorAll('.method-btn').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+      document.getElementById('stripe-payment').style.display = method === 'stripe' ? 'block' : 'none';
+      document.getElementById('paypal-payment').style.display = method === 'paypal' ? 'block' : 'none';
+    }
+
+    async function processStripePayment() {
+      const cart = JSON.parse(localStorage.getItem('floFactionCart')) || [];
+      let amount = 0;
+      cart.forEach(item => amount += item.price * 100);
+
+      const { token } = await stripe.createToken(cardElement);
+      if (token) {
+        const response = await fetch('/api/charge', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: token.id, amount, email: document.getElementById('email').value })
+        });
+        if (response.ok) {
+          alert('Payment successful!');
+          localStorage.removeItem('floFactionCart');
+          window.location.href = '/confirmation.html';
+        }
+      }
+    }
+
+    function loadCartSummary() {
+      const cart = JSON.parse(localStorage.getItem('floFactionCart')) || [];
+      const itemsDiv = document.getElementById('order-items');
+      let total = 0;
+      
+      const itemCounts = {};
+      cart.forEach(item => {
+        itemCounts[item.id] = (itemCounts[item.id] || 0) + 1;
+        total += item.price;
+      });
+
+      Object.keys(itemCounts).forEach(productId => {
+        const product = cart.find(p => p.id === productId);
+        if (product) {
+          const item = document.createElement('div');
+          item.className = 'order-item';
+          item.innerHTML = `<span>${product.name}</span><span>$${(product.price * itemCounts[productId]).toFixed(2)}</span>`;
+          itemsDiv.appendChild(item);
+        }
+      });
+
+      document.getElementById('total-amount').textContent = total.toFixed(2);
+    }
+  </script>
+</body>
+</html>
