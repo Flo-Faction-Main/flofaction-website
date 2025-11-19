@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Flo Faction - Emergency Management & Disaster Preparedness | Crisis response planning, business continuity, risk assessment, and emergency training services">
+    <title>Emergency Management Services - Flo Faction</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #d32f2f 0%, #f57c00 100%);
+            min-height: 100vh;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #d32f2f;
+            text-decoration: none;
+        }
+        
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #d32f2f;
+        }
+        
+        .hero {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 3rem 5%;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: #d32f2f;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 5%;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        
+        .service-card h3 {
+            color: #d32f2f;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .service-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .credentials-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+        }
+        
+        .credentials-section h2 {
+            color: #d32f2f;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .credentials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .credential-item {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #d32f2f 0%, #f57c00 100%);
+            color: white;
+            border-radius: 10px;
+        }
+        
+        .credential-item .title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .credential-item .subtitle {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .response-phases {
+            margin: 3rem 0;
+        }
+        
+        .phase-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border-left: 5px solid #d32f2f;
+        }
+        
+        .phase-card h3 {
+            color: #d32f2f;
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        
+        .phase-card ul {
+            list-style-position: inside;
+            color: #666;
+        }
+        
+        .phase-card li {
+            margin-bottom: 0.5rem;
+            padding-left: 1rem;
+        }
+        
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            color: #ecf0f1;
+            text-align: center;
+            padding: 2rem 5%;
+            margin-top: 3rem;
+        }
+        
+        footer a {
+            color: #f57c00;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="/" class="logo">Flo Faction</a>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/insurance">Insurance</a>
+                <a href="/ai">AI Automation</a>
+                <a href="/emergencymanagement">Emergency Management</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>Emergency Management & Crisis Response</h1>
+        <p>Comprehensive Planning, Training & Response Solutions</p>
+        <a href="#contact" class="cta-button">Request Consultation</a>
+    </div>
+
+    <div class="container">
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🚨</div>
+                <h3>Crisis Response Planning</h3>
+                <p>Develop comprehensive emergency action plans tailored to your organization. Incident command structure, evacuation procedures, communication protocols, and resource allocation strategies.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>Risk Assessment & Analysis</h3>
+                <p>Identify vulnerabilities and potential threats through thorough hazard analysis. Natural disasters, technological failures, security threats, and business disruption scenarios.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🏫</div>
+                <h3>Training & Exercises</h3>
+                <p>Hands-on emergency response training for your team. Tabletop exercises, functional drills, and full-scale simulations to test readiness and improve response capabilities.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📝</div>
+                <h3>Business Continuity Planning</h3>
+                <p>Ensure operational resilience during and after emergencies. Critical function identification, recovery time objectives, alternate site planning, and continuity of operations (COOP).</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📡</div>
+                <h3>Emergency Communications</h3>
+                <p>Establish robust communication systems for crisis situations. Mass notification systems, crisis communication plans, media relations, and stakeholder coordination.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">⚖️</div>
+                <h3>Compliance & Documentation</h3>
+                <p>Meet regulatory requirements for emergency management. OSHA compliance, FEMA standards, NIMS/ICS implementation, and comprehensive documentation systems.</p>
+            </div>
+        </div>
+
+        <div class="credentials-section">
+            <h2>Professional Credentials & Expertise</h2>
+            <div class="credentials-grid">
+                <div class="credential-item">
+                    <div class="title">FEMA Certified</div>
+                    <div class="subtitle">ICS/NIMS Training Completed</div>
+                </div>
+                <div class="credential-item">
+                    <div class="title">10+ Years Experience</div>
+                    <div class="subtitle">Emergency Response Management</div>
+                </div>
+                <div class="credential-item">
+                    <div class="title">Multi-Hazard Planning</div>
+                    <div class="subtitle">All-Hazards Approach Specialist</div>
+                </div>
+                <div class="credential-item">
+                    <div class="title">Business Continuity</div>
+                    <div class="subtitle">ISO 22301 Knowledge</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="response-phases">
+            <h2 style="text-align: center; color: white; margin-bottom: 2rem; font-size: 2.5rem;">Four Phases of Emergency Management</h2>
+            
+            <div class="phase-card">
+                <h3>🛑 Mitigation</h3>
+                <ul>
+                    <li>Hazard identification and vulnerability assessment</li>
+                    <li>Risk reduction strategies and structural improvements</li>
+                    <li>Land use planning and building code enforcement</li>
+                    <li>Insurance coverage analysis and recommendations</li>
+                </ul>
+            </div>
+
+            <div class="phase-card">
+                <h3>🛡️ Preparedness</h3>
+                <ul>
+                    <li>Emergency operations plan development</li>
+                    <li>Training programs and exercise design</li>
+                    <li>Resource inventory and pre-positioning</li>
+                    <li>Mutual aid agreements and partnerships</li>
+                </ul>
+            </div>
+
+            <div class="phase-card">
+                <h3>⚡ Response</h3>
+                <ul>
+                    <li>Incident command activation and coordination</li>
+                    <li>Emergency operations center (EOC) management</li>
+                    <li>Life safety and rescue operations support</li>
+                    <li>Resource deployment and logistics coordination</li>
+                </ul>
+            </div>
+
+            <div class="phase-card">
+                <h3>🔄 Recovery</h3>
+                <ul>
+                    <li>Damage assessment and documentation</li>
+                    <li>Disaster assistance application support</li>
+                    <li>Long-term recovery planning and implementation</li>
+                    <li>After-action reviews and plan improvement</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <h3 style="margin-bottom: 1rem;">Protect Your Organization</h3>
+        <p><strong>Email:</strong> <a href="mailto:flofactionllc@gmail.com">flofactionllc@gmail.com</a> | <strong>Phone:</strong> (772) 208-9646</p>
+        <p style="margin-top: 1rem;">&copy; 2025 Flo Faction LLC. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
