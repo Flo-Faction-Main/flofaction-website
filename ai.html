@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Flo Faction - AI Automation & Digital Solutions | Streamline your business with intelligent automation, chatbots, workflow optimization, and AI-powered marketing">
+    <title>AI Automation Services - Flo Faction</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 1.5rem 5%;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #667eea;
+            text-decoration: none;
+        }
+        
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        nav a {
+            color: #333;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #667eea;
+        }
+        
+        .hero {
+            max-width: 1200px;
+            margin: 3rem auto;
+            padding: 3rem 5%;
+            text-align: center;
+            color: white;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: white;
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 5%;
+        }
+        
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .service-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+        
+        .service-card h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .service-card p {
+            color: #666;
+            line-height: 1.8;
+        }
+        
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .results-section {
+            background: white;
+            padding: 3rem;
+            border-radius: 15px;
+            margin: 3rem 0;
+        }
+        
+        .results-section h2 {
+            color: #667eea;
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .result-stat {
+            text-align: center;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+        }
+        
+        .result-stat .number {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        
+        .result-stat .label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .case-studies {
+            margin: 3rem 0;
+        }
+        
+        .case-study {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            border-left: 5px solid #667eea;
+        }
+        
+        .case-study h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            color: #ecf0f1;
+            text-align: center;
+            padding: 2rem 5%;
+            margin-top: 3rem;
+        }
+        
+        footer a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1.1rem;
+            }
+            
+            nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <a href="/" class="logo">Flo Faction</a>
+            <nav>
+                <a href="/">Home</a>
+                <a href="/insurance">Insurance</a>
+                <a href="/ai">AI Automation</a>
+                <a href="/services">Services</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="hero">
+        <h1>AI Automation & Digital Solutions</h1>
+        <p>Transform Your Business with Intelligent Automation</p>
+        <a href="#contact" class="cta-button">Get Started Today</a>
+    </div>
+
+    <div class="container">
+        <div class="services-grid">
+            <div class="service-card">
+                <div class="service-icon">🤖</div>
+                <h3>AI Chatbots & Virtual Assistants</h3>
+                <p>Deploy intelligent conversational AI that handles customer inquiries 24/7, qualifies leads, and books appointments automatically. Reduce response time by 95% and increase conversion rates.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">⚡</div>
+                <h3>Workflow Automation</h3>
+                <p>Eliminate repetitive tasks with custom automation workflows. Connect your apps, automate data entry, streamline approvals, and free your team to focus on high-value activities.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📊</div>
+                <h3>Marketing Automation</h3>
+                <p>Automate your entire marketing funnel - from lead capture to nurture sequences. Personalized email campaigns, social media scheduling, and analytics tracking all on autopilot.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🎯</div>
+                <h3>Lead Generation & Qualification</h3>
+                <p>AI-powered systems that identify, capture, and qualify leads automatically. Smart forms, predictive scoring, and automated follow-ups that convert prospects into customers.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">📈</div>
+                <h3>Analytics & Reporting</h3>
+                <p>Real-time dashboards and automated reports that provide actionable insights. Track KPIs, monitor campaign performance, and make data-driven decisions effortlessly.</p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">🔗</div>
+                <h3>System Integration</h3>
+                <p>Seamlessly connect all your business tools and platforms. CRM integration, payment processing, inventory management, and more - all working together automatically.</p>
+            </div>
+        </div>
+
+        <div class="results-section">
+            <h2>Proven Results for Our Clients</h2>
+            <div class="results-grid">
+                <div class="result-stat">
+                    <div class="number">95%</div>
+                    <div class="label">Reduction in Response Time</div>
+                </div>
+                <div class="result-stat">
+                    <div class="number">3.5x</div>
+                    <div class="label">Increase in Lead Generation</div>
+                </div>
+                <div class="result-stat">
+                    <div class="number">$50K+</div>
+                    <div class="label">Average Monthly Cost Savings</div>
+                </div>
+                <div class="result-stat">
+                    <div class="number">24/7</div>
+                    <div class="label">Automated Customer Support</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="case-studies">
+            <h2 style="text-align: center; color: white; margin-bottom: 2rem; font-size: 2.5rem;">Client Success Stories</h2>
+            
+            <div class="case-study">
+                <h3>Insurance Agency - 400% ROI in 6 Months</h3>
+                <p><strong>Challenge:</strong> Manual lead follow-up causing 60% of prospects to go cold</p>
+                <p><strong>Solution:</strong> Implemented AI chatbot with automated email sequences and CRM integration</p>
+                <p><strong>Results:</strong> Increased appointments booked by 285%, reduced admin time by 20 hours/week, generated $180K in additional premium revenue</p>
+            </div>
+
+            <div class="case-study">
+                <h3>Marketing Agency - Scaled Operations 10x</h3>
+                <p><strong>Challenge:</strong> Spending 30+ hours weekly on repetitive client reporting and social media management</p>
+                <p><strong>Solution:</strong> Custom automation workflows for reporting, content scheduling, and client communications</p>
+                <p><strong>Results:</strong> Freed 120+ hours monthly, took on 10 additional clients without hiring, increased profit margins by 45%</p>
+            </div>
+
+            <div class="case-study">
+                <h3>E-commerce Business - Doubled Conversion Rate</h3>
+                <p><strong>Challenge:</strong> High cart abandonment and low customer engagement</p>
+                <p><strong>Solution:</strong> AI-powered personalization engine with automated recovery campaigns</p>
+                <p><strong>Results:</strong> Recovered 35% of abandoned carts, doubled email open rates, increased customer lifetime value by 120%</p>
+            </div>
+        </div>
+    </div>
+
+    <footer id="contact">
+        <h3 style="margin-bottom: 1rem;">Ready to Transform Your Business?</h3>
+        <p><strong>Email:</strong> <a href="mailto:flofactionllc@gmail.com">flofactionllc@gmail.com</a> | <strong>Phone:</strong> (772) 208-9646</p>
+        <p style="margin-top: 1rem;">&copy; 2025 Flo Faction LLC. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
