@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FloFaction Shop - Music, Guides & Digital Products | Bradenton, FL</title>
+  <meta name="description" content="Shop FloFaction's digital products: beats, music, retirement guide, emergency management guide. Free and premium versions available. Secure Stripe & PayPal checkout.">
+  <meta name="keywords" content="music beats, retirement guide, emergency management, digital products, Florida">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', Tahoma, Geneva, sans-serif; background: #f5f7fa; color: #333; }
+    
+    /* Navigation */
+    .navbar { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px 40px; position: sticky; top: 0; z-index: 999; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+    .navbar-content { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .navbar h1 { font-size: 1.8rem; color: white; }
+    .nav-links { display: flex; gap: 30px; align-items: center; }
+    .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: opacity 0.3s; }
+    .nav-links a:hover { opacity: 0.8; }
+    .cart-icon { position: relative; cursor: pointer; font-size: 1.5rem; }
+    .cart-count { position: absolute; top: -8px; right: -8px; background: #ff6b6b; color: white; border-radius: 50%; width: 24px; height: 24px; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; }
+    
+    /* Hero Section */
+    .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 60px 40px; text-align: center; }
+    .hero h1 { font-size: 2.5rem; margin-bottom: 15px; }
+    .hero p { font-size: 1.1rem; margin-bottom: 20px; opacity: 0.95; }
+    
+    /* Filter & Sort */
+    .shop-controls { max-width: 1200px; margin: 40px auto; padding: 0 40px; display: flex; gap: 20px; align-items: center; flex-wrap: wrap; }
+    .shop-controls select { padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 1rem; background: white; cursor: pointer; }
+    
+    /* Product Grid */
+    .container { max-width: 1200px; margin: 40px auto; padding: 0 40px; }
+    .products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 30px; margin-bottom: 60px; }
+    
+    /* Product Card */
+    .product-card { background: white; border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); overflow: hidden; transition: transform 0.3s, box-shadow 0.3s; }
+    .product-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2); }
+    .product-image { width: 100%; height: 200px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white; }
+    .product-content { padding: 20px; }
+    .product-badge { display: inline-block; background: #ff6b6b; color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; margin-bottom: 10px; font-weight: bold; }
+    .product-badge.free { background: #51cf66; }
+    .product-title { font-size: 1.3rem; margin-bottom: 10px; color: #2c3e50; }
+    .product-desc { font-size: 0.95rem; color: #666; margin-bottom: 15px; line-height: 1.5; }
+    .product-price { display: flex; align-items: center; gap: 15px; margin-bottom: 20px; }
+    .price-current { font-size: 1.8rem; color: #667eea; font-weight: bold; }
+    .price-original { font-size: 1rem; color: #999; text-decoration: line-through; }
+    .product-footer { display: flex; gap: 10px; }
+    .btn { padding: 12px 20px; border: none; border-radius: 8px; font-size: 1rem; font-weight: 600; cursor: pointer; transition: all 0.3s; text-decoration: none; display: inline-block; }
+    .btn-primary { background: #667eea; color: white; flex: 1; text-align: center; }
+    .btn-primary:hover { background: #764ba2; transform: translateY(-2px); }
+    .btn-secondary { background: #f0f0f0; color: #667eea; flex: 1; text-align: center; border: 2px solid #667eea; }
+    .btn-secondary:hover { background: #667eea; color: white; }
+    
+    /* Product Details Modal */
+    .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); }
+    .modal-content { background: white; margin: 5% auto; padding: 40px; border-radius: 15px; max-width: 600px; max-height: 80vh; overflow-y: auto; position: relative; }
+    .close { position: absolute; right: 20px; top: 20px; font-size: 2rem; cursor: pointer; color: #999; }
+    .close:hover { color: #333; }
+    
+    /* Cart Sidebar */
+    .cart-sidebar { position: fixed; right: -400px; top: 0; width: 400px; height: 100vh; background: white; box-shadow: -5px 0 20px rgba(0,0,0,0.2); transition: right 0.3s; z-index: 999; overflow-y: auto; padding: 20px; }
+    .cart-sidebar.open { right: 0; }
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 15px 0; border-bottom: 1px solid #eee; }
+    .cart-item-remove { cursor: pointer; color: #ff6b6b; font-weight: bold; }
+    .cart-total { padding: 20px 0; font-size: 1.3rem; color: #667eea; font-weight: bold; margin-bottom: 20px; border-top: 2px solid #eee; }
+    
+    /* Footer */
+    .footer { background: #2c3e50; color: white; padding: 40px; text-align: center; margin-top: 60px; }
+    .footer p { margin-bottom: 10px; }
+    .footer-contact { margin-top: 20px; font-size: 0.95rem; }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .products-grid { grid-template-columns: 1fr; }
+      .cart-sidebar { width: 100%; right: -100%; }
+      .navbar h1 { font-size: 1.3rem; }
+      .hero h1 { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <div class="navbar-content">
+      <h1>🎵 FloFaction Shop</h1>
+      <div class="nav-links">
+        <a href="/index-voice-agent.html">Home</a>
+        <a href="/services.html">Services</a>
+        <a href="#" onclick="toggleCart()">Cart <span class="cart-count" id="cart-count">0</span></a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <div class="hero">
+    <h1>Digital Products Marketplace</h1>
+    <p>Music Beats • Business Guides • Educational Resources</p>
+  </div>
+
+  <!-- Controls -->
+  <div class="shop-controls">
+    <select id="category-filter" onchange="filterProducts()">
+      <option value="all">All Products</option>
+      <option value="music">Music & Beats</option>
+      <option value="guides">Guides & Resources</option>
+      <option value="free">Free Resources</option>
+    </select>
+    <select id="sort-filter" onchange="sortProducts()">
+      <option value="name">Sort by Name</option>
+      <option value="price-low">Price: Low to High</option>
+      <option value="price-high">Price: High to Low</option>
+    </select>
+  </div>
+
+  <!-- Products -->
+  <div class="container">
+    <div class="products-grid" id="products-grid">
+      <!-- Products will be loaded here by JavaScript -->
+    </div>
+  </div>
+
+  <!-- Cart Sidebar -->
+  <div class="cart-sidebar" id="cart-sidebar">
+    <h2>Shopping Cart</h2>
+    <div id="cart-items"></div>
+    <div class="cart-total">Total: $<span id="cart-total">0.00</span></div>
+    <button class="btn btn-primary" onclick="proceedToCheckout()">Proceed to Checkout</button>
+    <button class="btn btn-secondary" onclick="toggleCart()" style="margin-top: 10px;">Close Cart</button>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <h3>FloFaction LLC</h3>
+    <p>Your Complete Business Solution Provider</p>
+    <div class="footer-contact">
+      <p>📞 (772) 208-9646</p>
+      <p>📧 info@flofaction.com</p>
+      <p>📍 Bradenton, Sarasota & Tampa Bay, Florida</p>
+    </div>
+  </footer>
+
+  <!-- Modal for Product Details -->
+  <div id="product-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="closeModal()">&times;</span>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="/cart.js"></script>
+  <script src="/shop.js"></script>
+</body>
+</html>
