@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Adaptive Client Intake Form - Flo Faction LLC</title>
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#667eea">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <link rel="apple-touch-icon" href="/images/icon-192.png">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+            animation: slideUp 0.5s ease;
+        }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        h1 { color: #333; margin-bottom: 10px; font-size: 28px; }
+        .subtitle { color: #666; margin-bottom: 30px; }
+        .form-group { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 8px; color: #333; font-weight: 500; }
+        input, select, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; font-family: inherit; }
+        input:focus, select:focus, textarea:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+        .conditional-section { display: none; padding: 20px; background: #f8f9fa; border-left: 4px solid #667eea; margin: 20px 0; border-radius: 5px; }
+        .conditional-section.visible { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .btn { padding: 12px 30px; background: linear-gradient(135deg, #667eea, #764ba2); color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; font-weight: 600; transition: all 0.3s; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3); }
+        .success-message { background: #d4edda; color: #155724; padding: 15px; border-radius: 5px; margin-top: 20px; display: none; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Client Intake Form</h1>
+        <p class="subtitle">Tell us about your financial goals and services needed</p>
+        
+        <form id="intakeForm">
+            <!-- Basic Information -->
+            <div class="form-group">
+                <label for="fullName">Full Name *</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+
+            <!-- Service Selection -->
+            <div class="form-group">
+                <label for="serviceType">Select Service *</label>
+                <select id="serviceType" name="serviceType" required>
+                    <option value="">-- Choose a Service --</option>
+                    <option value="insurance">Insurance Products</option>
+                    <option value="wealth">Infinite Banking & Passive Income</option>
+                    <option value="tax">Tax Planning</option>
+                    <option value="business">Business Solutions</option>
+                    <option value="music">Music Sync Licensing</option>
+                    <option value="ai">AI & Technology Consulting</option>
+                    <option value="notary">Notary Services</option>
+                </select>
+            </div>
+
+            <!-- Conditional: Insurance -->
+            <div id="insuranceSection" class="conditional-section">
+                <h3>Insurance Information</h3>
+                <div class="form-group">
+                    <label for="insuranceType">Type of Insurance Interest:</label>
+                    <select id="insuranceType" name="insuranceType">
+                        <option value="">-- Select Type --</option>
+                        <option value="life">Life Insurance</option>
+                        <option value="health">Health Insurance</option>
+                        <option value="property">Property & Casualty</option>
+                        <option value="business">Business Insurance</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="currentCoverage">Current Coverage Amount:</label>
+                    <input type="number" id="currentCoverage" name="currentCoverage" placeholder="$">
+                </div>
+            </div>
+
+            <!-- Conditional: Infinite Banking/Wealth -->
+            <div id="wealthSection" class="conditional-section">
+                <h3>Infinite Banking & Passive Income Strategy</h3>
+                <p>Generate 2-5% monthly passive income through overfunded whole life insurance policies.</p>
+                <div class="form-group">
+                    <label for="currentIncome">Current Annual Income *</label>
+                    <input type="number" id="currentIncome" name="currentIncome" placeholder="$" required>
+                </div>
+                <div class="form-group">
+                    <label for="investmentCapital">Investment Capital Available *</label>
+                    <input type="number" id="investmentCapital" name="investmentCapital" placeholder="$" required>
+                </div>
+                <div class="form-group">
+                    <label for="financialGoals">Financial Goals *</label>
+                    <textarea id="financialGoals" name="financialGoals" rows="4" placeholder="Describe your wealth-building goals..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="riskTolerance">Risk Tolerance *</label>
+                    <select id="riskTolerance" name="riskTolerance" required>
+                        <option value="">-- Select Level --</option>
+                        <option value="conservative">Conservative (Preservation)</option>
+                        <option value="moderate">Moderate (Balanced)</option>
+                        <option value="aggressive">Aggressive (Growth)</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Conditional: Tax Planning -->
+            <div id="taxSection" class="conditional-section">
+                <h3>Tax Planning</h3>
+                <div class="form-group">
+                    <label for="businessType">Business Type:</label>
+                    <input type="text" id="businessType" name="businessType" placeholder="e.g., LLC, S-Corp, Sole Proprietor">
+                </div>
+                <div class="form-group">
+                    <label for="annualRevenue">Annual Revenue:</label>
+                    <input type="number" id="annualRevenue" name="annualRevenue" placeholder="$">
+                </div>
+            </div>
+
+            <!-- Conditional: Business -->
+            <div id="businessSection" class="conditional-section">
+                <h3>Business Solutions</h3>
+                <div class="form-group">
+                    <label for="businessName">Business Name:</label>
+                    <input type="text" id="businessName" name="businessName">
+                </div>
+                <div class="form-group">
+                    <label for="businessChallenge">Current Business Challenge:</label>
+                    <textarea id="businessChallenge" name="businessChallenge" rows="4" placeholder="Describe your business challenge..."></textarea>
+                </div>
+            </div>
+
+            <!-- General Notes -->
+            <div class="form-group">
+                <label for="notes">Additional Notes:</label>
+                <textarea id="notes" name="notes" rows="4" placeholder="Any additional information..."></textarea>
+            </div>
+
+            <!-- Preferred Contact -->
+            <div class="form-group">
+                <label for="preferredContact">Preferred Contact Method *</label>
+                <select id="preferredContact" name="preferredContact" required>
+                    <option value="email">Email</option>
+                    <option value="phone">Phone</option>
+                    <option value="sms">SMS</option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn">Submit Application</button>
+            <div class="success-message" id="successMessage">Your application has been submitted successfully!</div>
+        </form>
+    </div>
+
+    <script src="/adaptive-intake.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(reg => console.log('SW registered'))
+                .catch(err => console.log('SW registration failed'));
+        }
+    </script>
+</body>
+</html>
