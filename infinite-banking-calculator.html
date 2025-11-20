@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Banking Calculator - Flo Faction</title>
+    <meta name="description" content="Calculate your infinite banking potential with our advanced financial calculator. Understand how policy loans work for wealth building.">
+    <meta name="keywords" content="infinite banking, calculator, wealth building, policy loans, financial tools">
+    <link rel="canonical" href="https://www.flofaction.com/infinite-banking-calculator">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); min-height: 100vh; padding: 20px; color: #333; }
+        .container { max-width: 900px; margin: 0 auto; background: white; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.2); padding: 40px; }
+        h1 { color: #2d3748; margin-bottom: 10px; font-size: 2.5em; }
+        .subtitle { color: #666; margin-bottom: 30px; font-size: 1.1em; }
+        .form-group { margin-bottom: 25px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; color: #2d3748; font-size: 1.05em; }
+        input { width: 100%; padding: 12px 15px; border: 2px solid #e2e8f0; border-radius: 6px; font-size: 1em; }
+        input:focus { outline: none; border-color: #667eea; box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 640px) { .form-row { grid-template-columns: 1fr; } h1 { font-size: 1.8em; } }
+        button { width: 100%; padding: 14px 28px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; border-radius: 6px; font-size: 1.1em; font-weight: 600; cursor: pointer; margin-top: 10px; }
+        button:hover { transform: translateY(-2px); box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4); }
+        .results { background: #f7fafc; padding: 25px; border-radius: 8px; margin-top: 30px; display: none; border-left: 5px solid #667eea; }
+        .results.show { display: block; }
+        .result-item { display: flex; justify-content: space-between; padding: 12px 0; border-bottom: 1px solid #e2e8f0; }
+        .result-value { color: #667eea; font-weight: 700; }
+        .helper-text { font-size: 0.9em; color: #718096; margin-top: 5px; }
+        nav { background: #2d3748; padding: 15px 40px; margin: -40px -40px 30px -40px; border-radius: 12px 12px 0 0; }
+        nav a { color: white; text-decoration: none; margin-right: 20px; transition: color 0.3s; }
+        nav a:hover { color: #667eea; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <nav><a href="/">← Back to Home</a></nav>
+        <h1>Infinite Banking Calculator</h1>
+        <p class="subtitle">Calculate the power of infinite banking for your financial strategy</p>
+        <form id="infiniteBankingForm" onsubmit="calculateInfiniteBanking(event)">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="initialPremium">Initial Annual Premium ($)</label>
+                    <input type="number" id="initialPremium" name="initialPremium" min="0" step="100" value="10000" required>
+                    <p class="helper-text">The amount you plan to contribute annually</p>
+                </div>
+                <div class="form-group">
+                    <label for="policyYear">Policy Year</label>
+                    <input type="number" id="policyYear" name="policyYear" min="1" max="50" value="10" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="creditRate">Loan Interest Rate (%)</label>
+                    <input type="number" id="creditRate" name="creditRate" min="0" max="100" step="0.1" value="5.5" required>
+                </div>
+                <div class="form-group">
+                    <label for="loanYears">Loan Payback Period (Years)</label>
+                    <input type="number" id="loanYears" name="loanYears" min="1" max="50" value="10" required>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="cashValue">Current Cash Value ($)</label>
+                    <input type="number" id="cashValue" name="cashValue" min="0" step="1000" value="50000" required>
+                </div>
+                <div class="form-group">
+                    <label for="growthRate">Annual Growth Rate (%)</label>
+                    <input type="number" id="growthRate" name="growthRate" min="0" max="100" step="0.1" value="4.5" required>
+                </div>
+            </div>
+            <button type="submit">Calculate Your Infinite Banking Potential</button>
+        </form>
+        <div id="results" class="results" role="region" aria-live="polite">
+            <h2 style="margin-bottom: 20px; color: #2d3748;">Your Results</h2>
+            <div class="result-item"><span>Available Loan Amount:</span><span class="result-value" id="loanAmount">$0</span></div>
+            <div class="result-item"><span>Annual Interest Charge:</span><span class="result-value" id="interestCharge">$0</span></div>
+            <div class="result-item"><span>Monthly Payment:</span><span class="result-value" id="monthlyPayment">$0</span></div>
+            <div class="result-item"><span>Total Interest Paid:</span><span class="result-value" id="totalInterest">$0</span></div>
+            <div class="result-item"><span>Projected Cash Value:</span><span class="result-value" id="projectedValue">$0</span></div>
+            <div class="result-item"><span>Net Available After Loan:</span><span class="result-value" id="netAvailable">$0</span></div>
+        </div>
+    </div>
+    <script>
+        function calculateInfiniteBanking(event) {
+            event.preventDefault();
+            const initialPremium = parseFloat(document.getElementById('initialPremium').value) || 0;
+            const policyYear = parseInt(document.getElementById('policyYear').value) || 1;
+            const creditRate = parseFloat(document.getElementById('creditRate').value) || 0;
+            const loanYears = parseInt(document.getElementById('loanYears').value) || 1;
+            const cashValue = parseFloat(document.getElementById('cashValue').value) || 0;
+            const growthRate = parseFloat(document.getElementById('growthRate').value) || 0;
+            const loanAmount = cashValue * 0.9;
+            const annualInterest = (loanAmount * creditRate) / 100;
+            const monthlyPayment = (loanAmount / loanYears) / 12 + (annualInterest / 12);
+            const totalInterest = annualInterest * loanYears;
+            const projectedValue = cashValue * Math.pow(1 + (growthRate / 100), policyYear);
+            const netAvailable = projectedValue - loanAmount;
+            document.getElementById('loanAmount').textContent = '$' + loanAmount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('interestCharge').textContent = '$' + annualInterest.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('monthlyPayment').textContent = '$' + monthlyPayment.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('totalInterest').textContent = '$' + totalInterest.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('projectedValue').textContent = '$' + projectedValue.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('netAvailable').textContent = '$' + netAvailable.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+            document.getElementById('results').classList.add('show');
+        }
+        window.addEventListener('load', function() { document.getElementById('infiniteBankingForm').dispatchEvent(new Event('submit')); });
+    </script>
+</body>
+</html>
