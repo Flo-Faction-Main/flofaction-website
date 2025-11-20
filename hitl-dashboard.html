@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HITL Approval Dashboard - Flo Faction LLC</title>
+    <link rel="manifest" href="/manifest.json">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f5f7fa; }
+        .dashboard { display: grid; grid-template-columns: 300px 1fr; height: 100vh; }
+        .sidebar { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; overflow-y: auto; }
+        .sidebar h2 { margin-bottom: 20px; font-size: 20px; }
+        .sidebar-item { padding: 12px; margin-bottom: 10px; border-radius: 5px; cursor: pointer; transition: all 0.3s; }
+        .sidebar-item:hover { background: rgba(255,255,255,0.2); }
+        .sidebar-item.active { background: rgba(255,255,255,0.3); font-weight: 600; }
+        .main-content { padding: 30px; overflow-y: auto; }
+        .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .header h1 { font-size: 28px; color: #333; }
+        .filter-controls { display: flex; gap: 15px; }
+        .filter-controls select { padding: 10px 15px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; }
+        .queue-container { display: grid; gap: 15px; }
+        .queue-card { background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: all 0.3s; }
+        .queue-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.12); }
+        .queue-card.high { border-left: 4px solid #ff6b6b; }
+        .queue-card.medium { border-left: 4px solid #ffd93d; }
+        .queue-card.low { border-left: 4px solid #6bcf7f; }
+        .queue-header { display: flex; justify-content: space-between; align-items: start; margin-bottom: 15px; }
+        .priority-badge { padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; text-transform: uppercase; }
+        .priority-badge.high { background: #ffe0e0; color: #ff6b6b; }
+        .priority-badge.medium { background: #fff8d9; color: #ffd93d; }
+        .priority-badge.low { background: #e8f5e9; color: #6bcf7f; }
+        .client-info { margin-bottom: 15px; }
+        .info-row { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+        .info-label { color: #666; font-weight: 500; }
+        .info-value { color: #333; }
+        .action-buttons { display: flex; gap: 10px; margin-top: 15px; }
+        .btn { padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-weight: 600; transition: all 0.3s; font-size: 14px; }
+        .btn-approve { background: #6bcf7f; color: white; }
+        .btn-approve:hover { background: #5bb570; }
+        .btn-reject { background: #ff6b6b; color: white; }
+        .btn-reject:hover { background: #ff5252; }
+        .btn-review { background: #667eea; color: white; }
+        .btn-review:hover { background: #5568d3; }
+        .notification { position: fixed; top: 20px; right: 20px; padding: 15px 20px; background: white; border-radius: 5px; box-shadow: 0 4px 12px rgba(0,0,0,0.15); display: none; z-index: 1000; }
+        .notification.show { display: block; animation: slideIn 0.3s ease; }
+        @keyframes slideIn { from { transform: translateX(400px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 30px; }
+        .stat-card { background: white; padding: 20px; border-radius: 8px; text-align: center; }
+        .stat-number { font-size: 32px; font-weight: 700; color: #667eea; }
+        .stat-label { font-size: 14px; color: #666; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="dashboard">
+        <div class="sidebar">
+            <h2>HITL Dashboard</h2>
+            <div class="sidebar-item active" onclick="filterByPriority('all')">All Inquiries</div>
+            <div class="sidebar-item" onclick="filterByPriority('high')">High Priority</div>
+            <div class="sidebar-item" onclick="filterByPriority('medium')">Medium Priority</div>
+            <div class="sidebar-item" onclick="filterByPriority('low')">Low Priority</div>
+            <div class="sidebar-item" onclick="filterByStatus('pending')">Pending</div>
+            <div class="sidebar-item" onclick="filterByStatus('approved')">Approved</div>
+            <div class="sidebar-item" onclick="filterByStatus('rejected')">Rejected</div>
+            <hr style="margin: 20px 0; opacity: 0.3;">
+            <div class="sidebar-item" onclick="location.href='/'">← Back to Home</div>
+        </div>
+        
+        <div class="main-content">
+            <div class="header">
+                <h1>Approval Queue</h1>
+                <div class="filter-controls">
+                    <select id="sortSelect" onchange="updateSort()">
+                        <option value="recent">Most Recent</option>
+                        <option value="priority">By Priority</option>
+                        <option value="value">By Value</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-card">
+                    <div class="stat-number" id="totalCount">0</div>
+                    <div class="stat-label">Total Inquiries</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="highCount">0</div>
+                    <div class="stat-label">High Priority</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="pendingCount">0</div>
+                    <div class="stat-label">Pending Review</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number" id="approvedCount">0</div>
+                    <div class="stat-label">Approved Today</div>
+                </div>
+            </div>
+            
+            <div class="queue-container" id="queueContainer"></div>
+        </div>
+    </div>
+    
+    <div class="notification" id="notification"></div>
+    
+    <script src="/hitl-workflow.js"></script>
+    <script>
+        // Mock data for testing - replace with API calls
+        const mockQueue = [
+            { id: 1, name: 'John Smith', email: 'john@example.com', service: 'wealth', priority: 'HIGH', amount: 75000, status: 'pending', timestamp: new Date() },
+            { id: 2, name: 'Sarah Johnson', email: 'sarah@example.com', service: 'insurance', priority: 'MEDIUM', amount: 150000, status: 'pending', timestamp: new Date() },
+            { id: 3, name: 'Mike Chen', email: 'mike@example.com', service: 'business', priority: 'LOW', amount: 25000, status: 'pending', timestamp: new Date() }
+        ];
+        
+        let currentQueue = [...mockQueue];
+        
+        function renderQueue() {
+            const container = document.getElementById('queueContainer');
+            container.innerHTML = '';
+            
+            if (currentQueue.length === 0) {
+                container.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #999; padding: 40px;">No inquiries in queue</p>';
+                return;
+            }
+            
+            currentQueue.forEach(inquiry => {
+                const card = document.createElement('div');
+                card.className = `queue-card ${inquiry.priority.toLowerCase()}`;
+                card.innerHTML = `
+                    <div class="queue-header">
+                        <div>
+                            <h3 style="margin-bottom: 5px;">${inquiry.name}</h3>
+                            <span class="priority-badge ${inquiry.priority.toLowerCase()}">${inquiry.priority}</span>
+                        </div>
+                        <div style="text-align: right; font-size: 12px; color: #999;">${new Date(inquiry.timestamp).toLocaleDateString()}</div>
+                    </div>
+                    <div class="client-info">
+                        <div class="info-row">
+                            <span class="info-label">Service:</span>
+                            <span class="info-value">${inquiry.service}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Email:</span>
+                            <span class="info-value">${inquiry.email}</span>
+                        </div>
+                        <div class="info-row">
+                            <span class="info-label">Amount:</span>
+                            <span class="info-value">$${inquiry.amount.toLocaleString()}</span>
+                        </div>
+                    </div>
+                    <div class="action-buttons">
+                        <button class="btn btn-approve" onclick="approveInquiry(${inquiry.id})">Approve</button>
+                        <button class="btn btn-reject" onclick="rejectInquiry(${inquiry.id})">Reject</button>
+                        <button class="btn btn-review" onclick="viewDetails(${inquiry.id})">Details</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+            
+            updateStats();
+        }
+        
+        function approveInquiry(id) {
+            const inquiry = currentQueue.find(q => q.id === id);
+            if (inquiry) {
+                inquiry.status = 'approved';
+                showNotification('Inquiry approved and forwarded to CRM', 'success');
+                renderQueue();
+            }
+        }
+        
+        function rejectInquiry(id) {
+            if (confirm('Are you sure you want to reject this inquiry?')) {
+                const inquiry = currentQueue.find(q => q.id === id);
+                if (inquiry) {
+                    inquiry.status = 'rejected';
+                    showNotification('Inquiry rejected', 'error');
+                    renderQueue();
+                }
+            }
+        }
+        
+        function filterByPriority(priority) {
+            if (priority === 'all') {
+                currentQueue = [...mockQueue];
+            } else {
+                currentQueue = mockQueue.filter(q => q.priority.toLowerCase() === priority);
+            }
+            renderQueue();
+        }
+        
+        function filterByStatus(status) {
+            currentQueue = mockQueue.filter(q => q.status === status);
+            renderQueue();
+        }
+        
+        function updateStats() {
+            document.getElementById('totalCount').textContent = mockQueue.length;
+            document.getElementById('highCount').textContent = mockQueue.filter(q => q.priority === 'HIGH').length;
+            document.getElementById('pendingCount').textContent = mockQueue.filter(q => q.status === 'pending').length;
+            document.getElementById('approvedCount').textContent = mockQueue.filter(q => q.status === 'approved').length;
+        }
+        
+        function showNotification(message, type) {
+            const notif = document.getElementById('notification');
+            notif.textContent = message;
+            notif.style.background = type === 'success' ? '#d4edda' : '#f8d7da';
+            notif.style.color = type === 'success' ? '#155724' : '#721c24';
+            notif.classList.add('show');
+            setTimeout(() => notif.classList.remove('show'), 3000);
+        }
+        
+        // Initialize
+        renderQueue();
+    </script>
+</body>
+</html>
