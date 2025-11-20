@@ -1,0 +1,111 @@
+{
+  "name": "Flo Faction LLC - Insurance & Business Solutions",
+  "short_name": "Flo Faction",
+  "description": "Autonomous insurance, business consulting, and financial services powered by AI. Licensed in all 50 states.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#667eea",
+  "theme_color": "#667eea",
+  "orientation": "portrait-primary",
+  "scope": "/",
+  "icons": [
+    {
+      "src": "/images/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/images/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Get Insurance Quote",
+      "short_name": "Quote",
+      "description": "Get an instant insurance quote",
+      "url": "/quote.html",
+      "icons": [{ "src": "/images/icon-quote.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Talk to AI Agent",
+      "short_name": "AI Chat",
+      "description": "Chat with our AI insurance agent",
+      "url": "/index-voice-agent.html",
+      "icons": [{ "src": "/images/icon-chat.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Financial Tools",
+      "short_name": "Tools",
+      "description": "Access retirement and insurance calculators",
+      "url": "/insurance-tools.html",
+      "icons": [{ "src": "/images/icon-tools.png", "sizes": "96x96" }]
+    },
+    {
+      "name": "Client Intake",
+      "short_name": "Intake",
+      "description": "Complete client intake form",
+      "url": "/adaptive-intake.html",
+      "icons": [{ "src": "/images/icon-form.png", "sizes": "96x96" }]
+    }
+  ],
+  "categories": ["finance", "insurance", "business", "productivity"],
+  "screenshots": [
+    {
+      "src": "/images/screenshot-1.png",
+      "sizes": "540x720",
+      "type": "image/png",
+      "form_factor": "narrow"
+    },
+    {
+      "src": "/images/screenshot-2.png",
+      "sizes": "1280x720",
+      "type": "image/png",
+      "form_factor": "wide"
+    }
+  ],
+  "prefer_related_applications": false,
+  "related_applications": [],
+  "iarc_rating_id": "",
+  "features": [
+    "Push Notifications",
+    "Offline Form Submission",
+    "Voice AI Agent",
+    "Real-time Chat",
+    "Calculators",
+    "Document Upload"
+  ],
+  "share_target": {
+    "action": "/api/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "url": "url",
+      "files": [
+        {
+          "name": "documents",
+          "accept": ["image/*", "application/pdf", ".doc", ".docx"]
+        }
+      ]
+    }
+  },
+  "protocol_handlers": [
+    {
+      "protocol": "web+insurance",
+      "url": "/quote?type=%s"
+    },
+    {
+      "protocol": "mailto",
+      "url": "/contact?email=%s"
+    }
+  ]
+}
