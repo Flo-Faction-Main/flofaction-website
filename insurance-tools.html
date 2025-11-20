@@ -17,6 +17,199 @@
         .metric strong { font-size: 24px; color: #27ae60; }
         .disclaimer { font-size: 12px; color: #7f8c8d; font-style: italic; margin-top: 20px; }
         canvas { max-width: 100%; height: 400px; }
+
+                /* Animation keyframes */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.05);
+            }
+        }
+        
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 5px rgba(33, 150, 243, 0.5);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(33, 150, 243, 0.8), 0 0 30px rgba(33, 150, 243, 0.6);
+            }
+        }
+        
+        @keyframes countUp {
+            from {
+                opacity: 0;
+                transform: scale(0.5);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        /* Enhanced tool sections */
+        .tool-section {
+            animation: fadeInUp 0.6s ease-out forwards;
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .tool-section:nth-child(1) { animation-delay: 0.1s; }
+        .tool-section:nth-child(2) { animation-delay: 0.2s; }
+        .tool-section:nth-child(3) { animation-delay: 0.3s; }
+        .tool-section:nth-child(4) { animation-delay: 0.4s; }
+        
+        .tool-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        /* Animated buttons */
+        button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+        
+        button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+        
+        button:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: pulse 1.5s infinite;
+        }
+        
+        button:active {
+            transform: translateY(0);
+        }
+        
+        /* Input animations */
+        input:focus {
+            animation: glow 2s infinite;
+            border-color: #2196F3;
+        }
+        
+        /* Results container */
+        #iul-result, #medicare-result, #annuity-output, #aca-result {
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        /* Progress bar styling */
+        .progress-container {
+            width: 100%;
+            height: 30px;
+            background: linear-gradient(to right, #e0e0e0 0%, #f5f5f5 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #2196F3 0%, #00BCD4 50%, #4CAF50 100%);
+            border-radius: 15px;
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(33, 150, 243, 0.5);
+        }
+        
+        .progress-bar::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+        
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        
+        .progress-label {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #2196F3;
+            animation: countUp 0.5s ease-out;
+        }
+        
+        /* Metric card styling */
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin: 15px 0;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            animation: fadeInUp 0.6s ease-out;
+            transition: transform 0.3s ease;
+        }
+        
+        .metric-card:hover {
+            transform: scale(1.05) rotate(1deg);
+        }
+        
+        .metric-value {
+            font-size: 32px;
+            font-weight: bold;
+            margin: 10px 0;
+            animation: countUp 0.8s ease-out;
+        }
+        
+        .metric-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        /* Chart container animation */
+        canvas {
+            animation: fadeInUp 0.8s ease-out;
+        }
     </style>
 </head>
 <body>
@@ -29,6 +222,60 @@
         <div>
             <label>Current Age: <input type="number" id="iul-age" value="35" min="18" max="80"></label>
             <label>Monthly Contribution: <input type="number" id="iul-prem" value="500" min="100"></label>
+                            
+                <!-- Budget & Coverage Preferences -->
+                <label>What's most important to you?
+                    <select id="iul-priority">
+                        <option value="budget">Stay within my budget</option>
+                        <option value="coverage">Maximum coverage/death benefit</option>
+                        <option value="cash">Build cash value quickly</option>
+                        <option value="balanced">Balanced approach</option>
+                    </select>
+                </label>
+                
+                <label>Maximum Monthly Budget: <input type="number" id="iul-max-budget" placeholder="Optional - Enter max you can spend" min="50"></label>
+                
+                <label>Desired Death Benefit: <input type="number" id="iul-death-benefit" placeholder="Optional - Target coverage amount" min="25000" step="5000"></label>
+                
+                <label>Do you have existing coverage?
+                    <select id="iul-existing">
+                        <option value="none">No current coverage</option>
+                        <option value="term">Yes - Term life insurance</option>
+                        <option value="whole">Yes - Whole life insurance</option>
+                        <option value="iul">Yes - IUL policy</option>
+                        <option value="other">Yes - Other type</option>
+                    </select>
+                </label>
+                
+                <label id="existing-amount-container" style="display:none;">Current Coverage Amount: <input type="number" id="iul-current-coverage" placeholder="Current death benefit" min="0"></label>
+                
+                <label id="existing-premium-container" style="display:none;">Current Monthly Premium: <input type="number" id="iul-current-premium" placeholder="What you pay now" min="0"></label>
+                
+                <label>Health Status:
+                    <select id="iul-health">
+                        <option value="excellent">Excellent health</option>
+                        <option value="good">Good health</option>
+                        <option value="average">Average health</option>
+                        <option value="fair">Fair health (some conditions)</option>
+                    </select>
+                </label>
+                
+                <label>Tobacco Use:
+                    <select id="iul-tobacco">
+                        <option value="no">Non-tobacco user</option>
+                        <option value="yes">Tobacco user</option>
+                    </select>
+                </label>
+                
+                <label>Primary Goal:
+                    <select id="iul-goal">
+                        <option value="protection">Family protection</option>
+                        <option value="retirement">Retirement income supplement</option>
+                        <option value="wealth">Wealth accumulation</option>
+                        <option value="estate">Estate planning</option>
+                        <option value="business">Business planning</option>
+                    </select>
+                </label>
             <button id="btn-run-iul">Generate 30-Year Projection</button>
         </div>
         <canvas id="iul-chart"></canvas>
@@ -82,6 +329,260 @@
         <div id="aca-result"></div>
     </section>
 
+        <!-- AUTO INSURANCE QUOTE -->
+    <section id="auto-tool" class="tool-section">
+        <h2>Auto Insurance Quote</h2>
+        <form id="auto-form">
+            <h3>Driver Information</h3>
+            <label>Full Name: <input type="text" id="auto-name" required placeholder="Your full name"></label>
+            <label>Email: <input type="email" id="auto-email" required placeholder="your@email.com"></label>
+            <label>Phone: <input type="tel" id="auto-phone" required placeholder="(555) 123-4567"></label>
+            <label>Zip Code: <input type="text" id="auto-zip" required maxlength="5" placeholder="12345"></label>
+            <label>Date of Birth: <input type="date" id="auto-dob" required></label>
+            <label>Gender:
+                <select id="auto-gender">
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                </select>
+            </label>
+            <label>Marital Status:
+                <select id="auto-marital">
+                    <option value="single">Single</option>
+                    <option value="married">Married</option>
+                    <option value="divorced">Divorced</option>
+                    <option value="widowed">Widowed</option>
+                </select>
+            </label>
+            
+            <h3>Current Coverage</h3>
+            <label>Do you currently have auto insurance?
+                <select id="auto-current-ins">
+                    <option value="yes">Yes</option>
+                    <option value="no">No - Need new policy</option>
+                    <option value="lapsed">Had coverage but it lapsed</option>
+                </select>
+            </label>
+            <label id="auto-current-carrier-container" style="display:none;">Current Insurance Carrier: <input type="text" id="auto-current-carrier" placeholder="e.g., State Farm, GEICO"></label>
+            <label id="auto-current-premium-container" style="display:none;">Current Monthly Premium: <input type="number" id="auto-current-premium" placeholder="Amount you pay now"></label>
+            <label id="auto-exp-date-container" style="display:none;">Policy Expiration Date: <input type="date" id="auto-exp-date"></label>
+            
+            <h3>Vehicle Information</h3>
+            <label>Vehicle Year: <input type="number" id="auto-year" required min="1990" max="2026" placeholder="2020"></label>
+            <label>Vehicle Make: <input type="text" id="auto-make" required placeholder="Toyota, Ford, Honda, etc."></label>
+            <label>Vehicle Model: <input type="text" id="auto-model" required placeholder="Camry, F-150, Civic, etc."></label>
+            <label>Vehicle Use:
+                <select id="auto-use">
+                    <option value="commute">Commute to work</option>
+                    <option value="business">Business use</option>
+                    <option value="pleasure">Pleasure only</option>
+                </select>
+            </label>
+            <label>Average Annual Miles: <input type="number" id="auto-miles" placeholder="12000" min="0"></label>
+            <label>Do you own or lease?
+                <select id="auto-ownership">
+                    <option value="own">Own (paid off)</option>
+                    <option value="financed">Financing</option>
+                    <option value="lease">Leasing</option>
+                </select>
+            </label>
+            
+            <h3>Coverage Needs</h3>
+            <label>What's your priority?
+                <select id="auto-priority">
+                    <option value="lowest">Lowest price (minimum coverage)</option>
+                    <option value="budget">Budget-friendly with decent coverage</option>
+                    <option value="balanced">Balanced protection</option>
+                    <option value="full">Full coverage (maximum protection)</option>
+                </select>
+            </label>
+            <label>Maximum Monthly Budget: <input type="number" id="auto-max-budget" placeholder="Optional - Max you can spend" min="50"></label>
+            <label>Desired Deductible:
+                <select id="auto-deductible">
+                    <option value="250">$250 (higher premium)</option>
+                    <option value="500">$500</option>
+                    <option value="1000">$1,000 (lower premium)</option>
+                    <option value="2500">$2,500 (lowest premium)</option>
+                </select>
+            </label>
+            
+            <h3>Driving History</h3>
+            <label>Years of driving experience: <input type="number" id="auto-experience" min="0" max="70" placeholder="10"></label>
+            <label>Accidents in last 3 years:
+                <select id="auto-accidents">
+                    <option value="0">None</option>
+                    <option value="1">1 accident</option>
+                    <option value="2">2 accidents</option>
+                    <option value="3plus">3 or more</option>
+                </select>
+            </label>
+            <label>Tickets/violations in last 3 years:
+                <select id="auto-tickets">
+                    <option value="0">None</option>
+                    <option value="1">1 ticket</option>
+                    <option value="2">2 tickets</option>
+                    <option value="3plus">3 or more</option>
+                </select>
+            </label>
+            <label>DUI/DWI in last 5 years?
+                <select id="auto-dui">
+                    <option value="no">No</option>
+                    <option value="yes">Yes</option>
+                </select>
+            </label>
+            
+            <h3>Additional Drivers</h3>
+            <label>Additional drivers on policy:
+                <select id="auto-add-drivers">
+                    <option value="0">Just me</option>
+                    <option value="1">1 additional driver</option>
+                    <option value="2">2 additional drivers</option>
+                    <option value="3plus">3+ additional drivers</option>
+                </select>
+            </label>
+            
+            <button id="btn-auto-quote">Get My Auto Quote</button>
+        </form>
+        <div id="auto-result"></div>
+    </section>
+    
+    <!-- HOMEOWNERS INSURANCE QUOTE -->
+    <section id="home-tool" class="tool-section">
+        <h2>Homeowners Insurance Quote</h2>
+        <form id="home-form">
+            <h3>Contact Information</h3>
+            <label>Full Name: <input type="text" id="home-name" required placeholder="Your full name"></label>
+            <label>Email: <input type="email" id="home-email" required placeholder="your@email.com"></label>
+            <label>Phone: <input type="tel" id="home-phone" required placeholder="(555) 123-4567"></label>
+            
+            <h3>Property Information</h3>
+            <label>Property Address: <input type="text" id="home-address" required placeholder="123 Main Street"></label>
+            <label>City: <input type="text" id="home-city" required placeholder="Your city"></label>
+            <label>State: <input type="text" id="home-state" required placeholder="FL"></label>
+            <label>Zip Code: <input type="text" id="home-zip" required maxlength="5" placeholder="12345"></label>
+            
+            <label>Property Type:
+                <select id="home-type">
+                    <option value="single">Single Family Home</option>
+                    <option value="condo">Condo</option>
+                    <option value="townhouse">Townhouse</option>
+                    <option value="multi">Multi-Family (2-4 units)</option>
+                    <option value="mobile">Mobile Home</option>
+                </select>
+            </label>
+            
+            <label>Year Built: <input type="number" id="home-year" required min="1800" max="2026" placeholder="1995"></label>
+            <label>Square Footage: <input type="number" id="home-sqft" required placeholder="2000" min="100"></label>
+            <label>Number of Bedrooms: <input type="number" id="home-bedrooms" min="1" placeholder="3"></label>
+            <label>Number of Bathrooms: <input type="number" id="home-bathrooms" min="1" step="0.5" placeholder="2"></label>
+            <label>Number of Stories:
+                <select id="home-stories">
+                    <option value="1">1 Story</option>
+                    <option value="2">2 Stories</option>
+                    <option value="3plus">3+ Stories</option>
+                </select>
+            </label>
+            
+            <h3>Property Details</h3>
+            <label>Roof Type:
+                <select id="home-roof">
+                    <option value="shingle">Asphalt Shingle</option>
+                    <option value="metal">Metal</option>
+                    <option value="tile">Tile</option>
+                    <option value="flat">Flat</option>
+                </select>
+            </label>
+            <label>Roof Age: <input type="number" id="home-roof-age" placeholder="10 years" min="0" max="100"></label>
+            <label>Foundation Type:
+                <select id="home-foundation">
+                    <option value="slab">Slab</option>
+                    <option value="crawl">Crawl Space</option>
+                    <option value="basement">Basement</option>
+                    <option value="pier">Pier & Beam</option>
+                </select>
+            </label>
+            <label>Construction Type:
+                <select id="home-construction">
+                    <option value="frame">Frame/Wood</option>
+                    <option value="brick">Brick</option>
+                    <option value="concrete">Concrete Block</option>
+                    <option value="stucco">Stucco</option>
+                </select>
+            </label>
+            <label>Heating/Cooling System:
+                <select id="home-hvac">
+                    <option value="central">Central HVAC</option>
+                    <option value="heat-pump">Heat Pump</option>
+                    <option value="wall">Wall Units</option>
+                    <option value="none">None</option>
+                </select>
+            </label>
+            
+            <h3>Safety Features</h3>
+            <label><input type="checkbox" id="home-alarm"> Security/Burglar Alarm</label>
+            <label><input type="checkbox" id="home-fire"> Fire/Smoke Detectors</label>
+            <label><input type="checkbox" id="home-sprinkler"> Fire Sprinkler System</label>
+            <label><input type="checkbox" id="home-deadbolt"> Deadbolt Locks</label>
+            <label><input type="checkbox" id="home-hurricane"> Hurricane Shutters/Impact Windows</label>
+            
+            <h3>Ownership & Coverage</h3>
+            <label>Do you own or rent this property?
+                <select id="home-ownership">
+                    <option value="own">Own (with mortgage)</option>
+                    <option value="own-paid">Own (paid off)</option>
+                    <option value="rent">Rent (need renters insurance)</option>
+                </select>
+            </label>
+            
+            <label>Estimated Home Value: <input type="number" id="home-value" required placeholder="250000" min="10000"></label>
+            <label>Mortgage/Lender Name (if applicable): <input type="text" id="home-lender" placeholder="Wells Fargo, Chase, etc."></label>
+            
+            <label>Do you have current homeowners insurance?
+                <select id="home-current-ins">
+                    <option value="yes">Yes</option>
+                    <option value="no">No - Need new policy</option>
+                    <option value="shopping">Shopping around for better rates</option>
+                </select>
+            </label>
+            <label id="home-current-carrier-container" style="display:none;">Current Insurance Carrier: <input type="text" id="home-current-carrier" placeholder="e.g., Allstate, Progressive"></label>
+            <label id="home-current-premium-container" style="display:none;">Current Annual Premium: <input type="number" id="home-current-premium" placeholder="Amount you pay per year"></label>
+            <label id="home-exp-date-container" style="display:none;">Policy Renewal Date: <input type="date" id="home-exp-date"></label>
+            
+            <h3>Coverage Preferences</h3>
+            <label>What's your priority?
+                <select id="home-priority">
+                    <option value="lowest">Lowest price possible</option>
+                    <option value="budget">Budget-conscious with adequate coverage</option>
+                    <option value="balanced">Balanced protection</option>
+                    <option value="comprehensive">Comprehensive coverage</option>
+                    <option value="premium">Premium coverage (best available)</option>
+                </select>
+            </label>
+            <label>Maximum Annual Budget: <input type="number" id="home-max-budget" placeholder="Optional - Max yearly premium" min="100"></label>
+            <label>Desired Deductible:
+                <select id="home-deductible">
+                    <option value="500">$500 (higher premium)</option>
+                    <option value="1000">$1,000</option>
+                    <option value="2500">$2,500 (lower premium)</option>
+                    <option value="5000">$5,000</option>
+                    <option value="10000">$10,000 (lowest premium)</option>
+                </select>
+            </label>
+            
+            <h3>Claims History</h3>
+            <label>Insurance claims in last 5 years:
+                <select id="home-claims">
+                    <option value="0">No claims</option>
+                    <option value="1">1 claim</option>
+                    <option value="2">2 claims</option>
+                    <option value="3plus">3+ claims</option>
+                </select>
+            </label>
+            
+            <button id="btn-home-quote">Get My Homeowners Quote</button>
+        </form>
+        <div id="home-result"></div>
+    </section>
+
     <script type="module">
         import { IULIllustrator, MedicareFinder, AnnuityCalculator, ACACalculator } from './FloInsuranceModule.js';
 
@@ -112,6 +613,198 @@
             acaCalc.getQuote(zip, income, age, household);
         });
     </script>
+
+        // Handle IUL existing coverage visibility
+    document.getElementById('iul-existing').addEventListener('change', function() {
+        const value = this.value;
+        const showFields = value !== 'none';
+        document.getElementById('existing-amount-container').style.display = showFields ? 'block' : 'none';
+        document.getElementById('existing-premium-container').style.display = showFields ? 'block' : 'none';
+    });
+    
+    // Handle Auto insurance current coverage visibility
+    document.getElementById('auto-current-ins').addEventListener('change', function() {
+        const value = this.value;
+        const showFields = value === 'yes';
+        document.getElementById('auto-current-carrier-container').style.display = showFields ? 'block' : 'none';
+        document.getElementById('auto-current-premium-container').style.display = showFields ? 'block' : 'none';
+        document.getElementById('auto-exp-date-container').style.display = showFields ? 'block' : 'none';
+    });
+    
+    // Handle Homeowners current coverage visibility
+    document.getElementById('home-current-ins').addEventListener('change', function() {
+        const value = this.value;
+        const showFields = value === 'yes' || value === 'shopping';
+        document.getElementById('home-current-carrier-container').style.display = showFields ? 'block' : 'none';
+        document.getElementById('home-current-premium-container').style.display = showFields ? 'block' : 'none';
+        document.getElementById('home-exp-date-container').style.display = showFields ? 'block' : 'none';
+    });
+    
+    // Auto Insurance Quote Handler
+    document.getElementById('btn-auto-quote').addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Collect all form data
+        const formData = {
+            type: 'auto_insurance',
+            timestamp: new Date().toISOString(),
+            contact: {
+                name: document.getElementById('auto-name').value,
+                email: document.getElementById('auto-email').value,
+                phone: document.getElementById('auto-phone').value,
+                zip: document.getElementById('auto-zip').value,
+                dob: document.getElementById('auto-dob').value,
+                gender: document.getElementById('auto-gender').value,
+                marital: document.getElementById('auto-marital').value
+            },
+            current_coverage: {
+                has_insurance: document.getElementById('auto-current-ins').value,
+                carrier: document.getElementById('auto-current-carrier')?.value || 'N/A',
+                monthly_premium: document.getElementById('auto-current-premium')?.value || 'N/A',
+                expiration: document.getElementById('auto-exp-date')?.value || 'N/A'
+            },
+            vehicle: {
+                year: document.getElementById('auto-year').value,
+                make: document.getElementById('auto-make').value,
+                model: document.getElementById('auto-model').value,
+                use: document.getElementById('auto-use').value,
+                annual_miles: document.getElementById('auto-miles').value,
+                ownership: document.getElementById('auto-ownership').value
+            },
+            coverage_needs: {
+                priority: document.getElementById('auto-priority').value,
+                max_budget: document.getElementById('auto-max-budget')?.value || 'No limit',
+                deductible: document.getElementById('auto-deductible').value
+            },
+            driving_history: {
+                experience_years: document.getElementById('auto-experience').value,
+                accidents_3yr: document.getElementById('auto-accidents').value,
+                tickets_3yr: document.getElementById('auto-tickets').value,
+                dui_5yr: document.getElementById('auto-dui').value
+            },
+            additional_drivers: document.getElementById('auto-add-drivers').value,
+            referral_agent: 'Paul Edwards - Flo Faction LLC',
+            referral_email: 'Flo.Factionllc@gmail.com',
+            referral_phone: '(772) 208-9646'
+        };
+        
+        // Display confirmation message
+        const resultDiv = document.getElementById('auto-result');
+        resultDiv.innerHTML = `
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; border-radius: 15px; margin-top: 20px; animation: slideIn 0.5s ease-out;">
+                <h3 style="margin-top: 0;">✓ Auto Insurance Quote Request Received!</h3>
+                <p><strong>${formData.contact.name}</strong>, thank you for your interest in auto insurance!</p>
+                <p><strong>Paul Edwards</strong> from Flo Faction will personally review your information and contact you within 24 hours with your personalized auto insurance quotes.</p>
+                <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px; margin: 15px 0;">
+                    <p style="margin: 5px 0;"><strong>Your Specialist:</strong> Paul Edwards</p>
+                    <p style="margin: 5px 0;"><strong>Contact:</strong> (772) 208-9646</p>
+                    <p style="margin: 5px 0;"><strong>Email:</strong> Flo.Factionllc@gmail.com</p>
+                </div>
+                <p style="font-size: 14px; opacity: 0.9;">We'll compare rates from multiple carriers to find you the best coverage at the best price.</p>
+                <p style="font-size: 12px; opacity: 0.8; margin-top: 20px;">Reference ID: AUTO-${Date.now()}</p>
+            </div>
+        `;
+        
+        // Send data to backend (you'll need to set up the endpoint)
+        console.log('Auto Insurance Lead:', formData);
+        
+        // TODO: Send email notification to Flo.Factionllc@gmail.com
+        // This will require backend integration or email service like EmailJS
+        
+        // Scroll to result
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+    
+    // Homeowners Insurance Quote Handler
+    document.getElementById('btn-home-quote').addEventListener('click', (e) => {
+        e.preventDefault();
+        
+        // Collect all form data
+        const formData = {
+            type: 'homeowners_insurance',
+            timestamp: new Date().toISOString(),
+            contact: {
+                name: document.getElementById('home-name').value,
+                email: document.getElementById('home-email').value,
+                phone: document.getElementById('home-phone').value
+            },
+            property: {
+                address: document.getElementById('home-address').value,
+                city: document.getElementById('home-city').value,
+                state: document.getElementById('home-state').value,
+                zip: document.getElementById('home-zip').value,
+                type: document.getElementById('home-type').value,
+                year_built: document.getElementById('home-year').value,
+                sqft: document.getElementById('home-sqft').value,
+                bedrooms: document.getElementById('home-bedrooms').value,
+                bathrooms: document.getElementById('home-bathrooms').value,
+                stories: document.getElementById('home-stories').value
+            },
+            property_details: {
+                roof_type: document.getElementById('home-roof').value,
+                roof_age: document.getElementById('home-roof-age').value,
+                foundation: document.getElementById('home-foundation').value,
+                construction: document.getElementById('home-construction').value,
+                hvac: document.getElementById('home-hvac').value
+            },
+            safety_features: {
+                alarm: document.getElementById('home-alarm').checked,
+                fire_detectors: document.getElementById('home-fire').checked,
+                sprinkler: document.getElementById('home-sprinkler').checked,
+                deadbolt: document.getElementById('home-deadbolt').checked,
+                hurricane_protection: document.getElementById('home-hurricane').checked
+            },
+            coverage: {
+                ownership: document.getElementById('home-ownership').value,
+                estimated_value: document.getElementById('home-value').value,
+                lender: document.getElementById('home-lender')?.value || 'N/A',
+                has_insurance: document.getElementById('home-current-ins').value,
+                current_carrier: document.getElementById('home-current-carrier')?.value || 'N/A',
+                current_premium: document.getElementById('home-current-premium')?.value || 'N/A',
+                renewal_date: document.getElementById('home-exp-date')?.value || 'N/A',
+                priority: document.getElementById('home-priority').value,
+                max_budget: document.getElementById('home-max-budget')?.value || 'No limit',
+                deductible: document.getElementById('home-deductible').value
+            },
+            claims_history: document.getElementById('home-claims').value,
+            referral_source: 'Flo Faction LLC',
+            referral_email: 'Flo.Factionllc@gmail.com',
+            referral_phone: '(772) 208-9646'
+        };
+        
+        // Display confirmation message
+        const resultDiv = document.getElementById('home-result');
+        resultDiv.innerHTML = `
+            <div style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); color: white; padding: 30px; border-radius: 15px; margin-top: 20px; animation: slideIn 0.5s ease-out;">
+                <h3 style="margin-top: 0;">✓ Homeowners Insurance Quote Request Received!</h3>
+                <p><strong>${formData.contact.name}</strong>, thank you for requesting a homeowners insurance quote!</p>
+                <p>Flo Faction will connect you with one of our trusted partner agencies specializing in homeowners insurance in your area.</p>
+                <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px; margin: 15px 0;">
+                    <p style="margin: 5px 0;"><strong>What's Next:</strong></p>
+                    <p style="margin: 5px 0;">1. We'll review your property details</p>
+                    <p style="margin: 5px 0;">2. Match you with the best local specialist</p>
+                    <p style="margin: 5px 0;">3. They'll contact you within 24-48 hours</p>
+                    <p style="margin: 5px 0;">4. Get competitive quotes from multiple carriers</p>
+                </div>
+                <div style="background: rgba(255,255,255,0.2); padding: 15px; border-radius: 10px; margin: 15px 0;">
+                    <p style="margin: 5px 0;"><strong>Questions? Contact Flo Faction:</strong></p>
+                    <p style="margin: 5px 0;"><strong>Phone:</strong> (772) 208-9646</p>
+                    <p style="margin: 5px 0;"><strong>Email:</strong> Flo.Factionllc@gmail.com</p>
+                </div>
+                <p style="font-size: 14px; opacity: 0.9;">Our partner agents will shop multiple carriers to find you comprehensive coverage at competitive rates.</p>
+                <p style="font-size: 12px; opacity: 0.8; margin-top: 20px;">Reference ID: HOME-${Date.now()}</p>
+            </div>
+        `;
+        
+        // Send data to backend for agent matching and referral tracking
+        console.log('Homeowners Insurance Lead:', formData);
+        
+        // TODO: Send email notification to Flo.Factionllc@gmail.com with lead details
+        // This will include all property info for agent matching and referral fee tracking
+        
+        // Scroll to result
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
 
     <footer style="text-align: center; padding: 40px; color: #7f8c8d;">
         <p><strong>Flo Faction LLC</strong> | Licensed in All 50 States | Licensed in Life & Health Insurance</p>
