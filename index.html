@@ -1,168 +1,251 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flo Faction LLC - Insurance & Financial Services | AI-Powered Solutions</title>
-    		<meta name="description" content="Flo Faction LLC - AI-Powered Insurance, Wealth Building & Business Solutions. Instant AI analysis, Infinite Banking strategy, comprehensive protection for growth-minded professionals.">
-    <link rel="manifest" href="/manifest.json">
-    <meta name="theme-color" content="#667eea">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; overflow-x: hidden; }
-        
-        /* Animated Background */
-        .animated-bg { position: fixed; width: 100%; height: 100%; background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe); background-size: 400% 400%; animation: gradientShift 15s ease infinite; z-index: -1; }
-        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        
-        /* Header / Navigation */
-        header { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 24px; font-weight: 700; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        nav { display: flex; gap: 30px; }
-        nav a { text-decoration: none; color: #1a1a1a; font-weight: 500; transition: color 0.3s; }
-        nav a:hover { color: #667eea; }
-        .cta-btn { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 10px 25px; border-radius: 25px; text-decoration: none; transition: all 0.3s; }
-        .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4); }
-        
-        /* Hero Section */
-        .hero { margin-top: 60px; padding: 100px 40px; text-align: center; color: white; animation: fadeInDown 0.8s ease; }
-        .hero h1 { font-size: 60px; margin-bottom: 20px; animation: slideInUp 0.8s ease 0.2s both; }
-        .hero p { font-size: 24px; opacity: 0.9; margin-bottom: 40px; animation: slideInUp 0.8s ease 0.4s both; }
-        .hero-buttons { display: flex; gap: 20px; justify-content: center; animation: slideInUp 0.8s ease 0.6s both; }
-        .primary-btn { background: white; color: #667eea; padding: 15px 40px; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.3s; }
-        .primary-btn:hover { transform: scale(1.05); }
-        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
-        
-        /* Features Section */
-        .features { background: white; padding: 80px 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
-        .feature-card { padding: 40px; background: linear-gradient(135deg, #f5f7fa 0%, #f0f4f8 100%); border-radius: 15px; transition: all 0.3s; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
-        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2); }
-        .feature-card h3 { font-size: 24px; margin-bottom: 15px; color: #1a1a1a; }
-        .feature-card p { color: #666; line-height: 1.6; }
-        
-        /* Services Section */
-        .services { padding: 80px 40px; background: white; }
-        .services h2 { text-align: center; font-size: 48px; margin-bottom: 60px; color: #1a1a1a; }
-        .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-        .service-item { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 40px; border-radius: 10px; text-align: center; transition: all 0.3s; cursor: pointer; }
-        .service-item:hover { transform: scale(1.08); }
-        .service-item h3 { font-size: 22px; margin-bottom: 15px; }
-        
-        /* CTA Section */
-        .cta-section { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 80px 40px; text-align: center; }
-        .cta-section h2 { font-size: 48px; margin-bottom: 30px; }
-        .cta-section p { font-size: 18px; margin-bottom: 40px; opacity: 0.9; }
-        
-        /* Footer */
-        footer { background: #1a1a1a; color: white; padding: 40px; text-align: center; }
-        
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 36px; }
-            nav { gap: 15px; }
-            header { padding: 15px 20px; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flo Faction LLC - Insurance & Financial Services | AI-Powered Solutions</title>
+  <meta name="description" content="Flo Faction LLC - AI-Powered Insurance, Wealth Building & Business Solutions. Instant AI analysis, Infinite Banking strategy, comprehensive protection for growth-minded professionals.">
+  <meta name="keywords" content="insurance, wealth building, infinite banking, financial services, AI solutions, tax planning">
+  <meta property="og:title" content="Flo Faction LLC - AI-Powered Financial Solutions">
+  <meta property="og:description" content="Transform your financial future with AI-powered insurance and wealth-building strategies.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://www.flofaction.com/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Flo Faction LLC - AI-Powered Financial Solutions">
+  <meta name="twitter:description" content="Transform your financial future with AI-powered insurance and wealth-building strategies.">
+  <link rel="canonical" href="https://www.flofaction.com/">
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#667eea">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 60px; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; overflow-x: hidden; background: #fff; color: #1a1a1a; line-height: 1.6; }
+    
+    /* Accessibility Focus Styles */
+    *:focus-visible { outline: 3px solid #667eea; outline-offset: 2px; }
+    button:focus-visible, a:focus-visible { outline: 3px solid #667eea; }
+    
+    /* Skip to Content Link */
+    .skip-link { position: absolute; top: -40px; left: 0; background: #667eea; color: white; padding: 8px; text-decoration: none; z-index: 100; }
+    .skip-link:focus { top: 0; }
+    
+    /* Animated Background */
+    .animated-bg { position: fixed; width: 100%; height: 100%; background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe); background-size: 400% 400%; animation: gradientShift 15s ease infinite; z-index: -1; }
+    @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+    
+    /* Header / Navigation */
+    header { position: fixed; top: 0; width: 100%; background: rgba(255,255,255,0.98); backdrop-filter: blur(10px); z-index: 1000; box-shadow: 0 2px 20px rgba(0,0,0,0.08); padding: 15px 40px; display: flex; justify-content: space-between; align-items: center; gap: 20px; }
+    .logo { font-size: 24px; font-weight: 700; background: linear-gradient(135deg, #667eea, #764ba2); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; text-decoration: none; display: flex; align-items: center; gap: 8px; color: #667eea; }
+    .logo:hover { color: #764ba2; }
+    nav { display: flex; gap: 30px; align-items: center; }
+    nav a { text-decoration: none; color: #1a1a1a; font-weight: 500; transition: all 0.3s ease; font-size: 15px; }
+    nav a:hover { color: #667eea; transform: translateY(-2px); }
+    .cta-btn { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 12px 28px; border-radius: 25px; text-decoration: none; transition: all 0.3s ease; font-weight: 600; font-size: 14px; border: none; cursor: pointer; }
+    .cta-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(102, 126, 234, 0.4); }
+    
+    /* Hero Section */
+    .hero { margin-top: 60px; padding: 120px 40px; text-align: center; color: white; animation: fadeInDown 0.8s ease; min-height: 85vh; display: flex; flex-direction: column; justify-content: center; align-items: center; }
+    .hero h1 { font-size: 70px; margin-bottom: 20px; animation: slideInUp 0.8s ease 0.2s both; line-height: 1.2; font-weight: 800; letter-spacing: -1px; }
+    .hero p { font-size: 24px; opacity: 0.95; margin-bottom: 50px; animation: slideInUp 0.8s ease 0.4s both; max-width: 800px; margin-left: auto; margin-right: auto; }
+    .hero-buttons { display: flex; gap: 20px; justify-content: center; animation: slideInUp 0.8s ease 0.6s both; flex-wrap: wrap; }
+    .primary-btn { background: white; color: #667eea; padding: 16px 40px; border: none; border-radius: 8px; font-size: 16px; font-weight: 700; cursor: pointer; transition: all 0.3s ease; text-decoration: none; display: inline-block; }
+    .primary-btn:hover { transform: scale(1.05); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes slideInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+    
+    /* Breadcrumb Navigation */
+    .breadcrumb { padding: 10px 40px; background: rgba(255,255,255,0.5); font-size: 14px; }
+    .breadcrumb a { color: #667eea; text-decoration: none; margin: 0 5px; }
+    .breadcrumb a:hover { text-decoration: underline; }
+    
+    /* Features Section */
+    .features { background: white; padding: 100px 40px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; }
+    .features h2 { grid-column: 1/-1; font-size: 48px; text-align: center; margin-bottom: 20px; color: #1a1a1a; font-weight: 800; }
+    .feature-card { padding: 45px 30px; background: linear-gradient(135deg, #f5f7fa 0%, #f0f4f8 100%); border-radius: 15px; transition: all 0.3s ease; box-shadow: 0 2px 15px rgba(0,0,0,0.05); border-left: 4px solid #667eea; }
+    .feature-card:hover { transform: translateY(-12px); box-shadow: 0 20px 50px rgba(102, 126, 234, 0.2); }
+    .feature-card h3 { font-size: 24px; margin-bottom: 15px; color: #1a1a1a; font-weight: 700; }
+    .feature-card p { color: #555; line-height: 1.8; font-size: 15px; }
+    
+    /* Services Section */
+    .services { padding: 100px 40px; background: white; }
+    .services h2 { text-align: center; font-size: 48px; margin-bottom: 60px; color: #1a1a1a; font-weight: 800; }
+    .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; }
+    .service-item { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 50px 30px; border-radius: 12px; text-align: center; transition: all 0.3s ease; cursor: pointer; box-shadow: 0 5px 20px rgba(102, 126, 234, 0.3); }
+    .service-item:hover { transform: scale(1.08) translateY(-5px); box-shadow: 0 15px 40px rgba(102, 126, 234, 0.5); }
+    .service-item h3 { font-size: 22px; margin-bottom: 15px; font-weight: 700; }
+    .service-item p { font-size: 15px; line-height: 1.6; opacity: 0.95; }
+    
+    /* CTA Section */
+    .cta-section { background: linear-gradient(135deg, #667eea, #764ba2); color: white; padding: 100px 40px; text-align: center; }
+    .cta-section h2 { font-size: 48px; margin-bottom: 30px; font-weight: 800; }
+    .cta-section p { font-size: 18px; margin-bottom: 40px; opacity: 0.95; max-width: 600px; margin-left: auto; margin-right: auto; }
+    
+    /* Footer */
+    footer { background: #1a1a1a; color: white; padding: 50px 40px; text-align: center; line-height: 1.8; }
+    footer p { margin-bottom: 15px; font-size: 15px; }
+    .footer-links { margin: 20px 0; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+    .footer-links a { color: #667eea; text-decoration: none; font-size: 14px; }
+    .footer-links a:hover { text-decoration: underline; }
+    
+    /* Dark Mode */
+    @media (prefers-color-scheme: dark) {
+      body { background: #0d1117; color: white; }
+      nav a { color: #e0e0e0; }
+      .feature-card h3, .services h2, .features h2 { color: white; }
+    }
+    
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 42px; }
+      nav { gap: 15px; }
+      header { padding: 12px 20px; flex-direction: column; }
+      .hero { padding: 80px 20px; }
+      .features, .services { padding: 60px 20px; }
+      .cta-section { padding: 60px 20px; }
+      .hero-buttons { flex-direction: column; }
+      .primary-btn { width: 100%; }
+    }
+  </style>
 </head>
 <body>
-    <div class="animated-bg"></div>
-    
-    <header>
-        <div class="logo">🚀 Flo Faction</div>
-        <nav>
-            <a href="#features">Features</a>
-            <a href="#services">Services</a>
-            <a href="/adaptive-intake.html">Start</a>
-            <a href="/hitl-dashboard.html">Dashboard</a>
-        </nav>
-        <a href="/adaptive-intake.html" class="cta-btn">Get Started</a>
-    </header>
-    
-    <section class="hero">
-        <h1>Empower Your Financial Future</h1>
-        <p>AI-Driven Insurance, Wealth Building & Business Solutions for Growth-Minded Professionals</p>
-        <div class="hero-buttons">
-            <button class="primary-btn" onclick="location.href='/adaptive-intake.html'">Start Free Consultation</button>
-            <button class="primary-btn" style="background: transparent; color: white; border: 2px solid white;" onclick="location.href='/infinite-banking-calculator.html'">Calculate Passive Income</button>
-        </div>
-    </section>
-    
-    <section id="features" class="features">
-        		<h2>Our Features</h2>
-        <div class="feature-card">
-            <h3>⚡ Instant AI Analysis</h3>
-            <p>Get intelligent recommendations powered by machine learning in seconds, not days.</p>
-        </div>
-        <div class="feature-card">
-            <h3>💰 Infinite Banking Strategy</h3>
-            <p>Generate 2-5% monthly passive income through optimized whole life insurance policies.</p>
-        </div>
-        <div class="feature-card">
-            <h3>🛡️ Comprehensive Protection</h3>
-            <p>Multi-layered insurance solutions protecting your wealth and family legacy.</p>
-        </div>
-        <div class="feature-card">
-            <h3>📊 Real-Time Dashboard</h3>
-            <p>Track approvals, manage leads, and monitor your growth all in one place.</p>
-        </div>
-        <div class="feature-card">
-            <h3>🔐 Bank-Level Security</h3>
-            <p>Your data is encrypted and protected with enterprise-grade security protocols.</p>
-        </div>
-        <div class="feature-card">
-            <h3>🌐 Nationwide Licensed</h3>
-            <p>Licensed insurance agent in all 50 states, bringing expertise to your doorstep.</p>
-        </div>
-    </section>
-    
-    <section id="services" class="services">
-        <h2>Our Services</h2>
-        <div class="service-grid">
-            <div class="service-item">
-                <h3>💼 Insurance Solutions</h3>
-                <p>Life, health, property & business insurance tailored to your needs</p>
-            </div>
-            <div class="service-item">
-                <h3>💎 Wealth Building</h3>
-                <p>Infinite Banking & passive income strategies for financial freedom</p>
-            </div>
-            <div class="service-item">
-                <h3>📋 Tax Planning</h3>
-                <p>Optimize your tax strategy and maximize your wealth retention</p>
-            </div>
-            <div class="service-item">
-                <h3>🎵 Music Sync Licensing</h3>
-                <p>Professional sync licensing for creators and producers</p>
-            </div>
-            <div class="service-item">
-                <h3>🤖 AI Consulting</h3>
-                <p>Business automation and AI integration solutions</p>
-            </div>
-            <div class="service-item">
-                <h3>🏢 Business Services</h3>
-                <p>Comprehensive business support and growth strategies</p>
-            </div>
-        </div>
-    </section>
-    
-    <section class="cta-section">
-        <h2>Ready to Transform Your Financial Life?</h2>
-        <p>Join hundreds of satisfied clients generating passive income and securing their future</p>
-        <button class="primary-btn" onclick="location.href='/adaptive-intake.html'" style="background: white; color: #667eea;">Schedule Your Free Consultation Today</button>
-    </section>
-    
-    <footer>
-        <p>&copy; 2025 Flo Faction LLC. All rights reserved. Licensed in all 50 states.</p>
-        <p>"" src="/logo.svg" alt="Flo Faction"></p>
-        <script>
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(reg => console.log('SW registered'))
-                    .catch(err => console.log('SW failed'));
-            }
-        </script>
-    </footer>
+  <!-- Skip to Content Link for Accessibility -->
+  <a href="#main-content" class="skip-link" aria-label="Skip to main content">Skip to Main Content</a>
+  
+  <div class="animated-bg" aria-hidden="true"></div>
+  
+  <header role="banner">
+    <a href="/" class="logo" aria-label="Flo Faction Home">🚀 Flo Faction</a>
+    <nav role="navigation" aria-label="Main navigation">
+      <a href="#features" aria-label="Navigate to features section">Features</a>
+      <a href="#services" aria-label="Navigate to services section">Services</a>
+      <a href="/adaptive-intake.html" aria-label="Navigate to adaptive intake">Start</a>
+      <a href="/hitl-dashboard.html" aria-label="Navigate to dashboard">Dashboard</a>
+    </nav>
+    <a href="/adaptive-intake.html" class="cta-btn" aria-label="Start consultation">Get Started</a>
+  </header>
+  
+  <section class="hero" id="main-content" role="main">
+    <h1>Empower Your Financial Future</h1>
+    <p>AI-Driven Insurance, Wealth Building & Business Solutions for Growth-Minded Professionals</p>
+    <div class="hero-buttons">
+      <button class="primary-btn" onclick="location.href='/adaptive-intake.html'" aria-label="Start a free consultation">Start Free Consultation</button>
+      <button class="primary-btn" style="background: transparent; color: white; border: 2px solid white;" onclick="location.href='/infinite-banking-calculator.html'" aria-label="Calculate your passive income">Calculate Passive Income</button>
+    </div>
+  </section>
+  
+  <section id="features" class="features" aria-labelledby="features-heading">
+    <h2 id="features-heading">Our Features</h2>
+    <div class="feature-card">
+      <h3>⚡ Instant AI Analysis</h3>
+      <p>Get intelligent recommendations powered by machine learning in seconds, not days.</p>
+    </div>
+    <div class="feature-card">
+      <h3>💰 Infinite Banking Strategy</h3>
+      <p>Generate 2-5% monthly passive income through optimized whole life insurance policies.</p>
+    </div>
+    <div class="feature-card">
+      <h3>🛡️ Comprehensive Protection</h3>
+      <p>Multi-layered insurance solutions protecting your wealth and family legacy.</p>
+    </div>
+    <div class="feature-card">
+      <h3>📊 Real-Time Dashboard</h3>
+      <p>Track approvals, manage leads, and monitor your growth all in one place.</p>
+    </div>
+    <div class="feature-card">
+      <h3>🔐 Bank-Level Security</h3>
+      <p>Your data is encrypted and protected with enterprise-grade security protocols.</p>
+    </div>
+    <div class="feature-card">
+      <h3>🌐 Nationwide Licensed</h3>
+      <p>Licensed insurance agent in all 50 states, bringing expertise to your doorstep.</p>
+    </div>
+  </section>
+  
+  <section id="services" class="services" aria-labelledby="services-heading">
+    <h2 id="services-heading">Our Services</h2>
+    <div class="service-grid">
+      <div class="service-item" tabindex="0" role="button" aria-label="Insurance solutions service">
+        <h3>💼 Insurance Solutions</h3>
+        <p>Life, health, property & business insurance tailored to your needs</p>
+      </div>
+      <div class="service-item" tabindex="0" role="button" aria-label="Wealth building service">
+        <h3>💎 Wealth Building</h3>
+        <p>Infinite Banking & passive income strategies for financial freedom</p>
+      </div>
+      <div class="service-item" tabindex="0" role="button" aria-label="Tax planning service">
+        <h3>📋 Tax Planning</h3>
+        <p>Optimize your tax strategy and maximize your wealth retention</p>
+      </div>
+      <div class="service-item" tabindex="0" role="button" aria-label="Music sync licensing service">
+        <h3>🎵 Music Sync Licensing</h3>
+        <p>Professional sync licensing for creators and producers</p>
+      </div>
+      <div class="service-item" tabindex="0" role="button" aria-label="AI consulting service">
+        <h3>🤖 AI Consulting</h3>
+        <p>Business automation and AI integration solutions</p>
+      </div>
+      <div class="service-item" tabindex="0" role="button" aria-label="Business services">
+        <h3>🏢 Business Services</h3>
+        <p>Comprehensive business support and growth strategies</p>
+      </div>
+    </div>
+  </section>
+  
+  <section class="cta-section" aria-labelledby="cta-heading">
+    <h2 id="cta-heading">Ready to Transform Your Financial Life?</h2>
+    <p>Join hundreds of satisfied clients generating passive income and securing their future</p>
+    <button class="primary-btn" onclick="location.href='/adaptive-intake.html'" style="background: white; color: #667eea;" aria-label="Schedule a free consultation today">Schedule Your Free Consultation Today</button>
+  </section>
+  
+  <footer role="contentinfo">
+    <p>&copy; 2025 Flo Faction LLC. All rights reserved. Licensed in all 50 states.</p>
+    <div class="footer-links">
+      <a href="/privacy.html">Privacy Policy</a>
+      <a href="/terms.html">Terms of Service</a>
+      <a href="/contact.html">Contact</a>
+      <a href="/sitemap.xml">Sitemap</a>
+    </div>
+  </footer>
+  
+  <!-- Schema.org Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "Flo Faction LLC",
+    "url": "https://www.flofaction.com",
+    "logo": "https://www.flofaction.com/logo.svg",
+    "description": "AI-Powered Insurance, Wealth Building & Business Solutions",
+    "sameAs": [
+      "https://www.facebook.com/flofaction",
+      "https://www.linkedin.com/company/flofaction",
+      "https://www.instagram.com/flofaction"
+    ],
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "Customer Service",
+      "telephone": "+1-XXX-XXX-XXXX",
+      "email": "info@flofaction.com"
+    },
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "",
+      "addressLocality": "",
+      "addressRegion": "",
+      "postalCode": "",
+      "addressCountry": "US"
+    }
+  }
+  </script>
+  
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js')
+        .then(reg => console.log('SW registered'))
+        .catch(err => console.log('SW failed'));
+    }
+  </script>
 </body>
 </html>
