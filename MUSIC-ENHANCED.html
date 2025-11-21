@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Discover premium music and digital audio products from Flo Faction. High-quality digital downloads, beats, and audio collections available now.">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>Music Store - Flo Faction | Premium Digital Audio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://stripe.com">
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}html{scroll-behavior:smooth}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,Cantarell,sans-serif;background:#0f0f1e;color:#e0e0e0;line-height:1.6}a{color:inherit;text-decoration:none}header{background:#1a1a2e;border-bottom:1px solid #2d2d44;padding:1.5rem 2rem;position:sticky;top:0;z-index:100}header h1{font-size:1.8rem;font-weight:700;color:#00d4ff}main{max-width:1200px;margin:0 auto;padding:2rem}nav{margin:2rem 0;display:flex;gap:1rem;flex-wrap:wrap}nav button{background:#00d4ff;color:#1a1a2e;border:none;padding:0.75rem 1.5rem;border-radius:4px;cursor:pointer;font-weight:600;font-size:1rem;transition:all 0.3s}.skip-link{position:absolute;top:-40px;left:0;background:#000;color:#fff;padding:8px;z-index:100}.skip-link:focus{top:0}nav button:focus{outline:3px solid #00d4ff;outline-offset:2px}nav button:hover{background:#00b8cc;box-shadow:0 4px 12px rgba(0,212,255,0.3)}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:2rem;margin:2rem 0}.card{background:#1a1a2e;border:1px solid #2d2d44;border-radius:8px;overflow:hidden;transition:transform 0.3s,box-shadow 0.3s}.card:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(0,212,255,0.2)}.card:focus-within{outline:3px solid #00d4ff}.card-img{width:100%;height:250px;object-fit:cover;background:#2d2d44;display:block}.card-content{padding:1.5rem}.card-title{font-size:1.1rem;font-weight:600;margin-bottom:0.5rem;color:#00d4ff}.card-price{font-size:1.3rem;font-weight:700;color:#00d4ff;margin:1rem 0}.card-desc{font-size:0.9rem;color:#b0b0b0;margin-bottom:1rem;line-height:1.4}.btn{padding:0.75rem 1.5rem;background:#00d4ff;color:#1a1a2e;border:none;border-radius:4px;cursor:pointer;font-weight:600;transition:all 0.3s;font-size:1rem}.btn:hover{background:#00b8cc;box-shadow:0 4px 12px rgba(0,212,255,0.3)}.btn:focus{outline:3px solid #00d4ff;outline-offset:2px}.btn:active{transform:scale(0.98)}.cart-badge{display:inline-block;background:#ff006e;color:white;padding:0.25rem 0.75rem;border-radius:20px;font-size:0.85rem;margin-left:0.5rem;font-weight:600;aria-label:"items in cart"}footer{background:#1a1a2e;border-top:1px solid #2d2d44;padding:2rem;margin-top:4rem;text-align:center;color:#808080}#sr-live{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}@media(max-width:768px){header{padding:1rem}header h1{font-size:1.4rem}main{padding:1rem}.grid{grid-template-columns:1fr;gap:1.5rem}.card-img{height:200px}nav{gap:0.5rem}nav button{padding:0.5rem 1rem;font-size:0.9rem}}
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    <div id="sr-live" role="status" aria-live="polite" aria-atomic="true"></div>
+    
+    <header role="banner">
+        <h1>🎵 Music Store</h1>
+        <button onclick="location.href='/cart.html'" id="cartBtn" aria-label="View shopping cart" style="margin-top:0.5rem">View Cart <span id="cartCount" class="cart-badge" style="display:none" aria-label="number of items">0</span></button>
+    </header>
+
+    <main id="main-content">
+        <h1 style="display:none">Music Store - Premium Digital Audio Products</h1>
+        <nav role="region" aria-label="Product filters">
+            <button onclick="filterProducts('all')" aria-label="Filter products: Show all products">All Products</button>
+            <button onclick="filterProducts('beats')" aria-label="Filter products: Show beats">Beats</button>
+            <button onclick="filterProducts('collections')" aria-label="Filter products: Show collections">Collections</button>
+            <button onclick="filterProducts('samples')" aria-label="Filter products: Show samples">Samples</button>
+        </nav>
+
+        <section class="grid" id="productsGrid" role="region" aria-label="Product listings"></section>
+    </main>
+
+    <footer role="contentinfo">
+        <p>&copy; 2024 Flo Faction Music Store. All rights reserved. | <a href="/" aria-label="Return to home page">Back Home</a></p>
+    </footer>
+
+    <script>
+        const products = [
+            { id: 1, title: 'Electric Dreams Beat Pack', category: 'beats', price: 19.99, image: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22250%22 height=%22250%22%3E%3Crect fill=%22%2300d4ff%22 width=%22250%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22%231a1a2e%22 text-anchor=%22middle%22 dy=%22.3em%22%3EElectric Dreams%3C/text%3E%3C/svg%3E', description: 'Professional beat pack with 10 high-quality tracks' },
+            { id: 2, title: 'Lo-Fi Chill Bundle', category: 'collections', price: 24.99, image: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22250%22 height=%22250%22%3E%3Crect fill=%22%2300b8cc%22 width=%22250%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2224%22 fill=%22%231a1a2e%22 text-anchor=%22middle%22 dy=%22.3em%22%3ELo-Fi Chill%3C/text%3E%3C/svg%3E', description: 'Relaxing lo-fi beats perfect for studying' },
+            { id: 3, title: 'Hip-Hop Production Sample Pack', category: 'samples', price: 14.99, image: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22250%22 height=%22250%22%3E%3Crect fill=%22%23ff006e%22 width=%22250%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2220%22 fill=%22%23ffffff%22 text-anchor=%22middle%22 dy=%22.3em%22%3EHip-Hop Samples%3C/text%3E%3C/svg%3E', description: 'Premium samples for hip-hop production' },
+            { id: 4, title: 'Synthwave Retro Collection', category: 'collections', price: 29.99, image: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22250%22 height=%22250%22%3E%3Crect fill=%22%237209b7%22 width=%22250%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2220%22 fill=%22%23ffffff%22 text-anchor=%22middle%22 dy=%22.3em%22%3ESynthwave%3C/text%3E%3C/svg%3E', description: 'Nostalgic synthwave beats and textures' },
+            { id: 5, title: 'Ambient Soundscapes', category: 'collections', price: 17.99, image: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22250%22 height=%22250%22%3E%3Crect fill=%2200a896%22 width=%22250%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2222%22 fill=%22%23ffffff%22 text-anchor=%22middle%22 dy=%22.3em%22%3EAmbient%3C/text%3E%3C/svg%3E', description: 'Peaceful ambient soundscapes and drones' },
+            { id: 6, title: 'Urban Sound Effects', category: 'samples', price: 12.99, image: 'data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22250%22 height=%22250%22%3E%3Crect fill=%22%23fb5607%22 width=%22250%22 height=%22250%22/%3E%3Ctext x=%2250%25%22 y=%2250%25%22 font-size=%2220%22 fill=%22%23ffffff%22 text-anchor=%22middle%22 dy=%22.3em%22%3EUrban FX%3C/text%3E%3C/svg%3E', description: 'Professional urban and street sound effects' }
+        ];
+
+        let currentFilter = 'all';
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+        function renderProducts(filter = 'all') {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = '';
+            const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+            
+            filtered.forEach(product => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.setAttribute('role', 'article');
+                card.setAttribute('aria-label', `${product.title}, $${product.price.toFixed(2)}`);
+                card.innerHTML = `
+                    <img src="${product.image}" alt="${product.title} product cover" class="card-img" loading="lazy">
+                    <div class="card-content">
+                        <h2 class="card-title" style="margin-top:0">${product.title}</h2>
+                        <p class="card-price" aria-label="Price: ${product.price.toFixed(2)} dollars">$${product.price.toFixed(2)}</p>
+                        <p class="card-desc">${product.description}</p>
+                        <button class="btn" onclick="addToCart(${product.id}, '${product.title}', ${product.price})" aria-label="Add ${product.title} to cart">Add to Cart</button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterProducts(category) {
+            currentFilter = category;
+            renderProducts(category);
+            document.getElementById('sr-live').textContent = `Showing ${category === 'all' ? 'all' : category} products`;
+        }
+
+        function addToCart(id, title, price) {
+            const item = { id, title, price, quantity: 1 };
+            const existing = cart.find(i => i.id === id);
+            
+            if (existing) {
+                existing.quantity += 1;
+            } else {
+                cart.push(item);
+            }
+            
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartBadge();
+            document.getElementById('sr-live').textContent = `${title} added to cart`;
+        }
+
+        function updateCartBadge() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const badge = document.getElementById('cartCount');
+            if (count > 0) {
+                badge.textContent = count;
+                badge.style.display = 'inline-block';
+                badge.setAttribute('aria-label', `${count} items in cart`);
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            renderProducts();
+            updateCartBadge();
+        });
+    </script>
+</body>
+</html>
