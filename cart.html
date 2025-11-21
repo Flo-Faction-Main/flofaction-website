@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Shopping cart for Flo Faction music store. Review your items and proceed to secure checkout.">
+    <title>Shopping Cart - Flo Faction</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f0f1e;color:#e0e0e0}header{background:#1a1a2e;padding:1.5rem 2rem;border-bottom:1px solid #2d2d44}header h1{color:#00d4ff;font-size:1.8rem}main{max-width:1000px;margin:0 auto;padding:2rem}table{width:100%;border-collapse:collapse;margin-bottom:2rem}th,td{padding:1rem;text-align:left;border-bottom:1px solid #2d2d44}th{background:#1a1a2e;color:#00d4ff;font-weight:600}td{background:#0f0f1e}.qty-input{width:60px;padding:0.5rem;background:#1a1a2e;color:#e0e0e0;border:1px solid #2d2d44;border-radius:4px}.remove-btn{background:#ff006e;color:white;border:none;padding:0.5rem 1rem;border-radius:4px;cursor:pointer;font-weight:600}.remove-btn:hover{background:#cc0055}.summary{background:#1a1a2e;padding:2rem;border-radius:8px;text-align:right}.summary-row{display:flex;justify-content:space-between;margin-bottom:1rem;font-size:1.1rem}.total{font-size:1.5rem;font-weight:700;color:#00d4ff}.btn{padding:0.75rem 2rem;margin-top:1.5rem;background:#00d4ff;color:#1a1a2e;border:none;border-radius:4px;cursor:pointer;font-weight:600;font-size:1rem;margin-right:1rem}.btn:hover{background:#00b8cc}.secondary-btn{background:#2d2d44;color:#e0e0e0}.secondary-btn:hover{background:#404058}.empty{text-align:center;padding:3rem;color:#808080}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🛍️ Shopping Cart</h1>
+    </header>
+
+    <main>
+        <div id="cartContent">
+            <!-- Cart items will be loaded here -->
+        </div>
+    </main>
+
+    <script>
+        function renderCart() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const container = document.getElementById('cartContent');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<div class="empty"><p>Your cart is empty</p><button class="btn" onclick="location.href=\'/music.html\'">Continue Shopping</button></div>';
+                return;
+            }
+            
+            let html = '<table><thead><tr><th>Product</th><th>Price</th><th>Quantity</th><th>Total</th><th>Action</th></tr></thead><tbody>';
+            let total = 0;
+            
+            cart.forEach((item, index) => {
+                const itemTotal = item.price * item.quantity;
+                total += itemTotal;
+                html += `<tr><td>${item.title}</td><td>$${item.price.toFixed(2)}</td><td><input type="number" min="1" value="${item.quantity}" class="qty-input" onchange="updateQuantity(${index}, this.value)"></td><td>$${itemTotal.toFixed(2)}</td><td><button class="remove-btn" onclick="removeItem(${index})">Remove</button></td></tr>`;
+            });
+            
+            html += '</tbody></table>';
+            html += '<div class="summary"><div class="summary-row"><span>Subtotal:</span><span>$' + total.toFixed(2) + '</span></div>';
+            html += '<div class="summary-row"><span>Tax (10%):</span><span>$' + (total * 0.1).toFixed(2) + '</span></div>';
+            html += '<div class="summary-row total"><span>Total:</span><span>$' + (total * 1.1).toFixed(2) + '</span></div>';
+            html += '<button class="btn" onclick="checkout()">Proceed to Checkout</button>';
+            html += '<button class="btn secondary-btn" onclick="location.href=\'/music.html\'">Continue Shopping</button></div>';
+            
+            container.innerHTML = html;
+        }
+        
+        function removeItem(index) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            renderCart();
+        }
+        
+        function updateQuantity(index, value) {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const qty = parseInt(value);
+            if (qty > 0) {
+                cart[index].quantity = qty;
+                localStorage.setItem('cart', JSON.stringify(cart));
+                renderCart();
+            }
+        }
+        
+        function checkout() {
+            localStorage.setItem('checkoutReady', 'true');
+            location.href = '/checkout.html';
+        }
+        
+        document.addEventListener('DOMContentLoaded', renderCart);
+    </script>
+</body>
+</html>
