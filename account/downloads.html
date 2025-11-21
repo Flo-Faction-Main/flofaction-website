@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Download your purchased music and products from Flo Faction store.">
+    <title>My Downloads - Flo Faction</title>
+    <style>
+        *{margin:0;padding:0;box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f0f1e;color:#e0e0e0}header{background:#1a1a2e;padding:1.5rem 2rem;border-bottom:1px solid #2d2d44}header h1{color:#00d4ff;font-size:1.8rem}main{max-width:1000px;margin:0 auto;padding:2rem}table{width:100%;border-collapse:collapse;margin-top:2rem}th,td{padding:1rem;text-align:left;border-bottom:1px solid #2d2d44}th{background:#1a1a2e;color:#00d4ff;font-weight:600}td{background:#0f0f1e}.download-btn{background:#00d4ff;color:#1a1a2e;border:none;padding:0.5rem 1rem;border-radius:4px;cursor:pointer;font-weight:600}.download-btn:hover{background:#00b8cc}.empty{text-align:center;padding:3rem;color:#808080}.expires{font-size:0.9rem;color:#b0b0b0}.expired{color:#ff006e;font-weight:600}
+    </style>
+</head>
+<body>
+    <header>
+        <h1>💾 My Downloads</h1>
+    </header>
+
+    <main>
+        <h2 style="color:#00d4ff;margin-bottom:1rem">Order History & Downloads</h2>
+        <div id="downloads-container">
+            <!-- Downloads will be displayed here -->
+        </div>
+    </main>
+
+    <script>
+        function renderDownloads() {
+            const lastOrder = JSON.parse(localStorage.getItem('lastOrder'));
+            const container = document.getElementById('downloads-container');
+            
+            if (!lastOrder) {
+                container.innerHTML = '<div class="empty"><p>No purchases yet. <a href="/music.html" style="color:#00d4ff">Browse music</a></p></div>';
+                return;
+            }
+            
+            let html = '<table><thead><tr><th>Product</th><th>Purchase Date</th><th>Expires</th><th>Action</th></tr></thead><tbody>';
+            
+            const purchaseDate = new Date(lastOrder.timestamp);
+            const expirationDate = new Date(purchaseDate.getTime() + 7 * 24 * 60 * 60 * 1000);
+            const isExpired = expirationDate < new Date();
+            
+            lastOrder.items.forEach(item => {
+                const expiredClass = isExpired ? ' expired' : '';
+                const expiredText = isExpired ? ' (Expired)' : '';
+                const btnClass = isExpired ? 'disabled' : '';
+                const btnText = isExpired ? 'Expired' : 'Download';
+                
+                html += `<tr>`;
+                html += `<td>${item.title}</td>`;
+                html += `<td>${purchaseDate.toLocaleDateString()}</td>`;
+                html += `<td class="expires${expiredClass}">${expirationDate.toLocaleDateString()}${expiredText}</td>`;
+                html += `<td><button class="download-btn${btnClass ? ' disabled' : ''}" ${btnClass ? 'disabled' : 'onclick="downloadFile(\'' + item.id + '\')"'}>${btnText}</button></td>`;
+                html += `</tr>`;
+            });
+            
+            html += '</tbody></table>';
+            container.innerHTML = html;
+        }
+        
+        function downloadFile(productId) {
+            alert('Download started for product ' + productId + '. Check your downloads folder.');
+            // In a real implementation, this would initiate a download
+        }
+        
+        document.addEventListener('DOMContentLoaded', renderDownloads);
+    </script>
+</body>
+</html>
